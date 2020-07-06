@@ -6,6 +6,10 @@ import com.incture.MasterBUPA.entity.Language;
 
 
 
+/**
+ * @author Soumyajeet
+ *
+ */
 public interface LanguageRepository extends JpaRepository<Language, Integer> {
 	
 
