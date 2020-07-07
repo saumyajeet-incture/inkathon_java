@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.incture.MasterBUPA.entity.BusinessRole;
 import com.incture.MasterBUPA.entity.Country;
 import com.incture.MasterBUPA.entity.Gender;
 import com.incture.MasterBUPA.entity.Language;
 import com.incture.MasterBUPA.entity.MaritalStatus;
+import com.incture.MasterBUPA.entity.Nationality;
 import com.incture.MasterBUPA.entity.Occupation;
 import com.incture.MasterBUPA.entity.StandCommMethod;
 import com.incture.MasterBUPA.service.LookUpServiceImplementation;
@@ -36,6 +38,12 @@ public class LanguageRestController {
 	
 	@Autowired
 	private LookUpServiceImplementation standCommMethodservice;
+	
+	@Autowired
+	private LookUpServiceImplementation nationalityService;
+	
+	@Autowired
+	private LookUpServiceImplementation businessService;
 	
 	
 	@GetMapping("/languages")
@@ -66,6 +74,16 @@ public class LanguageRestController {
 	@GetMapping("/standCommMethod")
 	public List<StandCommMethod> findAllStandCommMethod(){
 		return standCommMethodservice.findAllStandCommMethod();
+	}
+	
+	@GetMapping("/nationality")
+	public List<Nationality> findAllNationality(){
+		return nationalityService.findNationality();
+	}
+	
+	@GetMapping("/businessRoles")
+	public List<BusinessRole> findAllRoles(){
+		return nationalityService.findBusinessRole();
 	}
 
 }

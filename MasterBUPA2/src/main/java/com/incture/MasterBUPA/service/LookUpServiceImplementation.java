@@ -5,22 +5,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.incture.MasterBUPA.dao.BusinessRoleRepository;
 import com.incture.MasterBUPA.dao.CountryRepository;
 import com.incture.MasterBUPA.dao.GenderRepository;
 import com.incture.MasterBUPA.dao.LanguageRepository;
 import com.incture.MasterBUPA.dao.MaritalStatusRepository;
+import com.incture.MasterBUPA.dao.NationalityRepository;
 import com.incture.MasterBUPA.dao.OccupationRepository;
 import com.incture.MasterBUPA.dao.StandCommMethodRepository;
+import com.incture.MasterBUPA.entity.BusinessRole;
 import com.incture.MasterBUPA.entity.Country;
 import com.incture.MasterBUPA.entity.Gender;
 import com.incture.MasterBUPA.entity.Language;
 import com.incture.MasterBUPA.entity.MaritalStatus;
+import com.incture.MasterBUPA.entity.Nationality;
 import com.incture.MasterBUPA.entity.Occupation;
 import com.incture.MasterBUPA.entity.StandCommMethod;
 
 /**
  * @author ASHU
- * @author Soumyajeet
+ * @author Saumyajeet
  */
 @Service
 public class LookUpServiceImplementation {
@@ -42,6 +46,12 @@ public class LookUpServiceImplementation {
 
 	@Autowired
 	private StandCommMethodRepository standCommMethodRepository;
+	
+	@Autowired
+	private NationalityRepository nationalityRepository;
+	
+	@Autowired
+	private BusinessRoleRepository businessRepository;
 
 
 	public List<Language> findAllLanguages() {
@@ -73,6 +83,14 @@ public class LookUpServiceImplementation {
 	public List<Gender> findGender() {
 		//Give all the Details for Gender
 		return genderRepository.findAll();
+	}
+	
+	public List<Nationality> findNationality(){
+		return nationalityRepository.findAll();
+	}
+	
+	public List<BusinessRole> findBusinessRole(){
+		return businessRepository.findAll();
 	}
 
 }
