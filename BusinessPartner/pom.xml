@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.incture</groupId>
 	<artifactId>BusinessPartner</artifactId>
@@ -41,6 +41,12 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-spring-service-connector -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -67,7 +73,26 @@
 			<artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
 			<version>1.0.4.RELEASE</version>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -80,34 +105,34 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-	
+
 	<profiles>
-		 <profile>
+		<profile>
 			<id>local</id>
 			<activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-		        <activatedProperties>local</activatedProperties>
-		    </properties>
-            <dependencies>
-            	<dependency>
-		            <groupId>com.h2database</groupId>
-		            <artifactId>h2</artifactId>
-		            <scope>runtime</scope>
-		        </dependency>
-            </dependencies>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>local</activatedProperties>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
 		</profile>
-		
+
 		<profile>
 			<id>cf</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-		        <activatedProperties>cf</activatedProperties>
-		    </properties>
-		    
+				<activatedProperties>cf</activatedProperties>
+			</properties>
+
 		</profile>
 	</profiles>
 
