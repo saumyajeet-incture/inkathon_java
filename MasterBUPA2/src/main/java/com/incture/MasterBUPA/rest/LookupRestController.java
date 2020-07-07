@@ -15,11 +15,11 @@ import com.incture.MasterBUPA.entity.MaritalStatus;
 import com.incture.MasterBUPA.entity.Nationality;
 import com.incture.MasterBUPA.entity.Occupation;
 import com.incture.MasterBUPA.entity.StandCommMethod;
-import com.incture.MasterBUPA.service.LookUpServiceImplementation;
+import com.incture.MasterBUPA.service.implementation.LookUpServiceImplementation;
 
 @RestController
 @RequestMapping("/api")
-public class LanguageRestController {
+public class LookupRestController {
 	
 	@Autowired
 	private LookUpServiceImplementation languageservice;
@@ -83,7 +83,7 @@ public class LanguageRestController {
 	
 	@GetMapping("/businessRoles")
 	public List<BusinessRole> findAllRoles(){
-		return nationalityService.findBusinessRole();
+		return businessService.findBusinessRole();
 	}
 
 }
