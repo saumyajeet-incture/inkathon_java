@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.incture.MasterBUPA.dto.request.SaveBupa;
 import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.entity.CommunicationDetail;
@@ -36,12 +37,19 @@ public class BUPAController {
 	@Autowired
 	private PaymentTransactionService paymentService;
 	
+	
 	@PostMapping("/bupa")
 	public BusinessPartner addBusinessPartner(@RequestBody BusinessPartner businessPartner){
 		
 		
 		bupaService.save(businessPartner);
 		return businessPartner;
+	}
+	
+	@PostMapping("/saveBupa")
+	public String saveBupa(@RequestBody SaveBupa savebupa){
+		
+		return "success";
 	}
 	
 	@PostMapping("/address")
