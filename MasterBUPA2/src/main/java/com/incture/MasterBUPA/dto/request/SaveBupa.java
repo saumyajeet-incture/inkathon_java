@@ -1,5 +1,7 @@
 package com.incture.MasterBUPA.dto.request;
 
+import java.util.List;
+
 import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.entity.CommunicationDetail;

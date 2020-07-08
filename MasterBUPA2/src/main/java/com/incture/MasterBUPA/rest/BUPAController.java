@@ -49,6 +49,11 @@ public class BUPAController {
 	@PostMapping("/saveBupa")
 	public String saveBupa(@RequestBody SaveBupa savebupa){
 		
+		BusinessPartner bp=savebupa.getBusinessPartner();
+		bp.setBpRole("1");
+		bupaService.save(bp);
+		Address add=savebupa.getAddress();
+		addressService.save(add);
 		return "success";
 	}
 	
