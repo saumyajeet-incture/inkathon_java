@@ -2,94 +2,81 @@ package com.incture.MasterBUPA.dto.request;
 
 import java.util.List;
 
-import com.incture.MasterBUPA.entity.Address;
-import com.incture.MasterBUPA.entity.BusinessPartner;
-import com.incture.MasterBUPA.entity.CommunicationDetail;
-import com.incture.MasterBUPA.entity.Identification;
-import com.incture.MasterBUPA.entity.PaymentTransactions;
-
+/**
+ * @author ASHU
+ *
+ */
 public class SaveBupa {
-	private BusinessPartner  businessPartner;
-	private Address address;
-	private CommunicationDetail communicationDetail;
-	private Identification identification;
-	private PaymentTransactions paymentTransaction;
+	private List<BupaDTO>  basicDetails;
+	private List<AddressDTO> address;
+	private List<CommunicationDTO> communications;
+	private List<IdentificationDTO> identifications;
+	private List<PaymentDTO> payment;
 	/**
-	 * @return the businessPartner
+	 * @return the basicDetails
 	 */
-	public BusinessPartner getBusinessPartner() {
-		return businessPartner;
+	public List<BupaDTO> getBasicDetails() {
+		return basicDetails;
 	}
 	/**
-	 * @param businessPartner the businessPartner to set
+	 * @param basicDetails the basicDetails to set
 	 */
-	public SaveBupa setBusinessPartner(BusinessPartner businessPartner) {
-		this.businessPartner = businessPartner;
-		return this;
+	public void setBasicDetails(List<BupaDTO> basicDetails) {
+		this.basicDetails = basicDetails;
 	}
 	/**
 	 * @return the address
 	 */
-	public Address getAddress() {
+	public List<AddressDTO> getAddress() {
 		return address;
 	}
 	/**
 	 * @param address the address to set
 	 */
-	public SaveBupa setAddress(Address address) {
+	public void setAddress(List<AddressDTO> address) {
 		this.address = address;
-		return this;
 	}
 	/**
-	 * @return the communicationDetail
+	 * @return the communications
 	 */
-	public CommunicationDetail getCommunicationDetail() {
-		return communicationDetail;
+	public List<CommunicationDTO> getCommunications() {
+		return communications;
 	}
 	/**
-	 * @param communicationDetail the communicationDetail to set
+	 * @param communications the communications to set
 	 */
-	public SaveBupa setCommunicationDetail(CommunicationDetail communicationDetail) {
-		this.communicationDetail = communicationDetail;
-		return this;
+	public void setCommunications(List<CommunicationDTO> communications) {
+		this.communications = communications;
 	}
 	/**
-	 * @return the identification
+	 * @return the identifications
 	 */
-	public Identification getIdentification() {
-		return identification;
+	public List<IdentificationDTO> getIdentifications() {
+		return identifications;
 	}
 	/**
-	 * @param identification the identification to set
+	 * @param identifications the identifications to set
 	 */
-	public SaveBupa setIdentification(Identification identification) {
-		this.identification = identification;
-		return this;
+	public void setIdentifications(List<IdentificationDTO> identifications) {
+		this.identifications = identifications;
 	}
 	/**
-	 * @return the paymentTransaction
+	 * @return the payment
 	 */
-	public PaymentTransactions getPaymentTransaction() {
-		return paymentTransaction;
+	public List<PaymentDTO> getPayment() {
+		return payment;
 	}
 	/**
-	 * @param paymentTransaction the paymentTransaction to set
+	 * @param payment the payment to set
 	 */
-	public SaveBupa setPaymentTransaction(PaymentTransactions paymentTransaction) {
-		this.paymentTransaction = paymentTransaction;
-		return this;
+	public void setPayment(List<PaymentDTO> payment) {
+		this.payment = payment;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "SaveBupa [businessPartner=" + businessPartner + ", address=" + address + ", communicationDetail="
-				+ communicationDetail + ", identification=" + identification + ", paymentTransaction="
-				+ paymentTransaction + "]";
+		return "SaveBupa [basicDetails=" + basicDetails + ", address=" + address + ", communications=" + communications
+				+ ", identifications=" + identifications + ", payment=" + payment + "]";
 	}
-	
-	
 	
 	
 
