@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * @author ASHU
+ * @author SAUMYAJEET
  *
  */
 @Entity
@@ -15,7 +15,7 @@ public class BusinessPartner {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer bpId;
-	@Column(unique =true,nullable = false)
+	@Column(unique =true)
 	private Integer roleId;
 	private String firstName;
 	private String lastName;
