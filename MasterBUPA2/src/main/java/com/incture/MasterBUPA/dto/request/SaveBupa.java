@@ -4,24 +4,25 @@ import java.util.List;
 
 /**
  * @author ASHU
+ * 
  *
  */
 public class SaveBupa {
-	private List<BupaDTO>  basicDetails;
+	private  BupaDTO basicDetails;
 	private List<AddressDTO> address;
-	private List<CommunicationDTO> communications;
-	private List<IdentificationDTO> identifications;
+	private CommunicationDTO communications;
+	private IdentificationDTO identifications;
 	private List<PaymentDTO> payment;
 	/**
 	 * @return the basicDetails
 	 */
-	public List<BupaDTO> getBasicDetails() {
+	public BupaDTO getBasicDetails() {
 		return basicDetails;
 	}
 	/**
 	 * @param basicDetails the basicDetails to set
 	 */
-	public void setBasicDetails(List<BupaDTO> basicDetails) {
+	public void setBasicDetails(BupaDTO basicDetails) {
 		this.basicDetails = basicDetails;
 	}
 	/**
@@ -39,25 +40,25 @@ public class SaveBupa {
 	/**
 	 * @return the communications
 	 */
-	public List<CommunicationDTO> getCommunications() {
+	public CommunicationDTO getCommunications() {
 		return communications;
 	}
 	/**
 	 * @param communications the communications to set
 	 */
-	public void setCommunications(List<CommunicationDTO> communications) {
+	public void setCommunications(CommunicationDTO communications) {
 		this.communications = communications;
 	}
 	/**
 	 * @return the identifications
 	 */
-	public List<IdentificationDTO> getIdentifications() {
+	public IdentificationDTO getIdentifications() {
 		return identifications;
 	}
 	/**
 	 * @param identifications the identifications to set
 	 */
-	public void setIdentifications(List<IdentificationDTO> identifications) {
+	public void setIdentifications(IdentificationDTO identifications) {
 		this.identifications = identifications;
 	}
 	/**
@@ -72,6 +73,9 @@ public class SaveBupa {
 	public void setPayment(List<PaymentDTO> payment) {
 		this.payment = payment;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "SaveBupa [basicDetails=" + basicDetails + ", address=" + address + ", communications=" + communications
