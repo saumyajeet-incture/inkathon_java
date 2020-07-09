@@ -1,6 +1,7 @@
 package com.incture.MasterBUPA.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.incture.MasterBUPA.entity.StandCommMethod;
 
@@ -10,6 +11,7 @@ import com.incture.MasterBUPA.entity.StandCommMethod;
  * @author ASHU
  *
  */
+@Repository
 public interface StandCommMethodRepository extends JpaRepository<StandCommMethod, Integer> {
 	
 

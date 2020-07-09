@@ -16,6 +16,7 @@ import com.incture.MasterBUPA.service.abstraction.AddressService;
 import com.incture.MasterBUPA.service.abstraction.BUPAService;
 import com.incture.MasterBUPA.service.abstraction.CommunicationService;
 import com.incture.MasterBUPA.service.abstraction.IdentificationService;
+import com.incture.MasterBUPA.service.abstraction.MainBupaService;
 import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 
 @RestController
@@ -37,10 +38,11 @@ public class BUPAController {
 	@Autowired
 	private PaymentTransactionService paymentService;
 	
+	@Autowired
+	private MainBupaService mainBupaService;
 	
 	@PostMapping("/bupa")
 	public BusinessPartner addBusinessPartner(@RequestBody BusinessPartner businessPartner){
-		
 		
 		bupaService.save(businessPartner);
 		return businessPartner;
@@ -48,7 +50,7 @@ public class BUPAController {
 	
 	@PostMapping("/saveBupa")
 	public String saveBupa(@RequestBody SaveBupa savebupa){
-		
+		mainBupaService.save(savebupa);
 		return "success";
 	}
 	

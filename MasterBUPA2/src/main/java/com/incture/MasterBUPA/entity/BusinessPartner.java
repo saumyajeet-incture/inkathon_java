@@ -1,4 +1,6 @@
 package com.incture.MasterBUPA.entity;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +17,9 @@ public class BusinessPartner {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer bpId;
-	@Column(unique =true)
-	private Integer roleId;
+	
+	@Column(unique =true,nullable = false )
+	private UUID roleId;
 	private String firstName;
 	private String lastName;
 	private String bpRole;
@@ -38,14 +41,14 @@ public class BusinessPartner {
 	/**
 	 * @return the roleId
 	 */
-	public Integer getRoleId() {
+	public UUID getRoleId() {
 		return roleId;
 	}
 	/**
-	 * @param roleId the roleId to set
+	 * @param uuid the roleId to set
 	 */
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setRoleId(UUID uuid) {
+		this.roleId = uuid;
 	}
 	/**
 	 * @return the firstName
