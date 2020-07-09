@@ -4,11 +4,11 @@ public class CommunicationDTO {
 	
 	private String comments;
 	private String email;
-	private Long extAddress;
-	private Long fax;
-	private Long mobile;
+	private String extAddress;
+	private String fax;
+	private String mobile;
 	private String standCommMethod;
-	private Long telephone;
+	private String telephone;
 	/**
 	 * @return the comments
 	 */
@@ -33,42 +33,7 @@ public class CommunicationDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/**
-	 * @return the extAddress
-	 */
-	public Long getExtAddress() {
-		return extAddress;
-	}
-	/**
-	 * @param extAddress the extAddress to set
-	 */
-	public void setExtAddress(Long extAddress) {
-		this.extAddress = extAddress;
-	}
-	/**
-	 * @return the fax
-	 */
-	public Long getFax() {
-		return fax;
-	}
-	/**
-	 * @param fax the fax to set
-	 */
-	public void setFax(Long fax) {
-		this.fax = fax;
-	}
-	/**
-	 * @return the mobile
-	 */
-	public Long getMobile() {
-		return mobile;
-	}
-	/**
-	 * @param mobile the mobile to set
-	 */
-	public void setMobile(Long mobile) {
-		this.mobile = mobile;
-	}
+	
 	/**
 	 * @return the standCommMethod
 	 */
@@ -81,16 +46,54 @@ public class CommunicationDTO {
 	public void setStandCommMethod(String standCommMethod) {
 		this.standCommMethod = standCommMethod;
 	}
+	
+	
+	/**
+	 * @return the extAddress
+	 */
+	public String getExtAddress() {
+		return extAddress;
+	}
+	/**
+	 * @param extAddress the extAddress to set
+	 */
+	public void setExtAddress(String extAddress) {
+		this.extAddress = extAddress;
+	}
+	/**
+	 * @return the fax
+	 */
+	public String getFax() {
+		return fax;
+	}
+	/**
+	 * @param fax the fax to set
+	 */
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+	/**
+	 * @return the mobile
+	 */
+	public String getMobile() {
+		return mobile;
+	}
+	/**
+	 * @param mobile the mobile to set
+	 */
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	/**
 	 * @return the telephone
 	 */
-	public Long getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 	/**
 	 * @param telephone the telephone to set
 	 */
-	public void setTelephone(Long telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 	/* (non-Javadoc)

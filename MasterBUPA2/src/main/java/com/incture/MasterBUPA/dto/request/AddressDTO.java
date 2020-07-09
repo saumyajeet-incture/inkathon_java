@@ -4,11 +4,11 @@ public class AddressDTO {
 	private String city;
 	private String country;
 	private String email;
-	private Long postalCode;
+	private String postalCode;
 	private String street;
 	private String street2;
 	private String street4;
-	private Long telephone;
+	private String telephone;
 	/**
 	 * @return the city
 	 */
@@ -45,17 +45,24 @@ public class AddressDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 	/**
 	 * @return the postalCode
 	 */
-	public Long getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
 	/**
 	 * @param postalCode the postalCode to set
 	 */
-	public void setPostalCode(Long postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
+	}
+	/**
+	 * @param telephone the telephone to set
+	 */
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 	/**
 	 * @return the street
@@ -93,17 +100,12 @@ public class AddressDTO {
 	public void setStreet4(String street4) {
 		this.street4 = street4;
 	}
+	
 	/**
 	 * @return the telephone
 	 */
-	public Long getTelephone() {
+	public String getTelephone() {
 		return telephone;
-	}
-	/**
-	 * @param telephone the telephone to set
-	 */
-	public void setTelephone(Long telephone) {
-		this.telephone = telephone;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

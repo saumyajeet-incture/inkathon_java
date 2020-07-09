@@ -19,63 +19,117 @@ public class CommunicationDetail{
 	private Integer bpId;
 	private String comments;
 	private String standCommMethod;
-	private Long extAddress;
-	private Long fax;
-	private Long mobile;
+	private String extAddress;
+	private String fax;
+	private String mobile;
 	private String email;
-	private Long telephone;
+	private String telephone;
+	/**
+	 * @return the communicationId
+	 */
 	public Integer getCommunicationId() {
 		return communicationId;
 	}
+	/**
+	 * @param communicationId the communicationId to set
+	 */
 	public void setCommunicationId(Integer communicationId) {
 		this.communicationId = communicationId;
 	}
+	/**
+	 * @return the bpId
+	 */
 	public Integer getBpId() {
 		return bpId;
 	}
+	/**
+	 * @param bpId the bpId to set
+	 */
 	public void setBpId(Integer bpId) {
 		this.bpId = bpId;
 	}
+	/**
+	 * @return the comments
+	 */
 	public String getComments() {
 		return comments;
 	}
+	/**
+	 * @param comments the comments to set
+	 */
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+	/**
+	 * @return the standCommMethod
+	 */
 	public String getStandCommMethod() {
 		return standCommMethod;
 	}
+	/**
+	 * @param standCommMethod the standCommMethod to set
+	 */
 	public void setStandCommMethod(String standCommMethod) {
 		this.standCommMethod = standCommMethod;
 	}
-	public Long getExtAddress() {
+	/**
+	 * @return the extAddress
+	 */
+	public String getExtAddress() {
 		return extAddress;
 	}
-	public void setExtAddress(Long extAddress) {
+	/**
+	 * @param extAddress the extAddress to set
+	 */
+	public void setExtAddress(String extAddress) {
 		this.extAddress = extAddress;
 	}
-	public Long getFax() {
+	/**
+	 * @return the fax
+	 */
+	public String getFax() {
 		return fax;
 	}
-	public void setFax(Long fax) {
+	/**
+	 * @param fax the fax to set
+	 */
+	public void setFax(String fax) {
 		this.fax = fax;
 	}
-	public Long getMobile() {
+	/**
+	 * @return the mobile
+	 */
+	public String getMobile() {
 		return mobile;
 	}
-	public void setMobile(Long mobile) {
+	/**
+	 * @param mobile the mobile to set
+	 */
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+	/**
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
+	/**
+	 * @param email the email to set
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Long getTelephone() {
+	/**
+	 * @return the telephone
+	 */
+	public String getTelephone() {
 		return telephone;
 	}
-	public void setTelephone(Long telephone) {
+	/**
+	 * @param telephone the telephone to set
+	 */
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 	@Override
