@@ -97,6 +97,31 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		communication.setStandCommMethod(communicationDTO.getStandCommMethod());
 		communication.setTelephone(communicationDTO.getTelephone());
 		communicationService.save(communication);
+		
+		//identifications details dto mapping
+		identity.setBpId(businessPartner.getBpId());
+		identity.setBirthPlace(identificationDTO.getBirthPlace());
+		identity.setCitizenship(identificationDTO.getCountry());
+		identity.setCountryOfOrigin(identificationDTO.getCountryOfOrigin());
+		identity.setEmployeer(identificationDTO.getEmployer());
+		identity.setMaritalStatus(identificationDTO.getMaritalStatus());
+		identity.setNationalityStatus(identificationDTO.getNationality());
+		identity.setOccupation(identificationDTO.getOccupation());
+		identity.setPersonnelNo(identificationDTO.getPersonnelNo());
+		identity.setUserName(identificationDTO.getUname());
+		identificationService.save(identity);
+		
+		//payment dto mapping
+		for(PaymentDTO paymentDto:paymentDTO){
+			payment.setBpId(businessPartner.getBpId());
+			payment.setBankAccount(paymentDto.getBankAcct());
+			payment.setBankKey(paymentDto.getBankKey());
+			payment.setControlKey(paymentDto.getControlKey());
+			payment.setiBAN(paymentDto.getIban());
+			payment.setPaymentCity(paymentDto.getpCity());
+			payment.setReferenceDocument(paymentDto.getRefDoc());
+			paymentTransactionService.save(payment);
+		}
 
 	}
 
