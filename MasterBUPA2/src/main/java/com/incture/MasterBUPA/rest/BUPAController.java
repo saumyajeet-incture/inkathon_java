@@ -49,9 +49,11 @@ public class BUPAController {
 	}
 	
 	@PostMapping("/saveBupa")
-	public String saveBupa(@RequestBody SaveBupa savebupa){
-		mainBupaService.save(savebupa);
-		return "success";
+	public Integer saveBupa(@RequestBody SaveBupa savebupa){
+		Integer bpId= mainBupaService.save(savebupa);
+		
+		
+		return bpId;
 	}
 	
 	@PostMapping("/address")

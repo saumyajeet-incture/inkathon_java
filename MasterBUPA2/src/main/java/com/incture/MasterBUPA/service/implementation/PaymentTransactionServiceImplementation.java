@@ -1,5 +1,6 @@
 package com.incture.MasterBUPA.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.incture.MasterBUPA.dao.bupa.PaymentRepository;
@@ -10,6 +11,7 @@ import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 @Service
 public class PaymentTransactionServiceImplementation implements PaymentTransactionService {
 	
+	@Autowired
 	private PaymentRepository paymentRepository;
 
 	@Override

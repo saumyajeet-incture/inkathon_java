@@ -41,6 +41,22 @@ public class MainBupaServiceImplementation implements MainBupaService {
 	private CommunicationDetail communication = new CommunicationDetail();
 	private PaymentTransactions payment = new PaymentTransactions();
 	private Identification identity = new Identification();
+	
+	public Integer bp_id;
+
+	/**
+	 * @return the bp_id
+	 */
+	public Integer getBp_id() {
+		return bp_id;
+	}
+
+	/**
+	 * @param bp_id the bp_id to set
+	 */
+	public void setBp_id(Integer bp_id) {
+		this.bp_id = bp_id;
+	}
 
 	@Autowired
 	private BUPAService bupaService;
@@ -58,7 +74,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 	PaymentTransactionService paymentTransactionService;
 
 	@Override
-	public void save(SaveBupa saveBupa) {
+	public Integer save(SaveBupa saveBupa) {
 		
 		List<AddressDTO> addressDTO = saveBupa.getAddress();
 		BupaDTO bupaDTO = saveBupa.getBasicDetails();
@@ -78,6 +94,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 
 		// ADDRESS DTO MAPPING
 		for (AddressDTO addressDto : addressDTO) {
+			bp_id=businessPartner.getBpId();
 			address.setBpId(businessPartner.getBpId());
 			address.setCity(addressDto.getCity());
 			address.setCountry(addressDto.getCountry());
@@ -124,6 +141,8 @@ public class MainBupaServiceImplementation implements MainBupaService {
 			payment.setReferenceDocument(paymentDto.getRefDoc());
 			paymentTransactionService.save(payment);
 		}
+		
+		return bp_id;
 
 	}
 
