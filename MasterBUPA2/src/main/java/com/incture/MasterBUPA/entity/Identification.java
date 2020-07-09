@@ -18,7 +18,7 @@ public class Identification{
 	@Column(unique =true,nullable = false )
 	private Integer bpId;
 	private String userName;
-	private Long personnelNo;
+	private String personnelNo;
 	private String birthPlace;
 	private String countryOfOrigin;
 	private String citizenship;
@@ -65,13 +65,13 @@ public class Identification{
 	/**
 	 * @return the personnelNo
 	 */
-	public Long getPersonnelNo() {
+	public String getPersonnelNo() {
 		return personnelNo;
 	}
 	/**
 	 * @param personnelNo the personnelNo to set
 	 */
-	public void setPersonnelNo(Long personnelNo) {
+	public void setPersonnelNo(String personnelNo) {
 		this.personnelNo = personnelNo;
 	}
 	/**

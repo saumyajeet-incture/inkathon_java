@@ -27,7 +27,11 @@ import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 /**
  * @author ASHU
  * @author SOUMYAJEET 
+<<<<<<< HEAD
  * remove it after seeing
+=======
+ * Mapping the DTO Services to MODEL services
+>>>>>>> branch 'new' of https://github.com/saumyajeet-incture/inkathon_java.git
  */
 @Service
 public class MainBupaServiceImplementation implements MainBupaService {
@@ -55,11 +59,9 @@ public class MainBupaServiceImplementation implements MainBupaService {
 
 	@Override
 	public void save(SaveBupa saveBupa) {
-		// TODO Auto-generated method stub
+		
 		List<AddressDTO> addressDTO = saveBupa.getAddress();
-
 		BupaDTO bupaDTO = saveBupa.getBasicDetails();
-
 		CommunicationDTO communicationDTO = saveBupa.getCommunications();
 		IdentificationDTO identificationDTO = saveBupa.getIdentifications();
 		List<PaymentDTO> paymentDTO = saveBupa.getPayment();
@@ -98,8 +100,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		communication.setStandCommMethod(communicationDTO.getStandCommMethod());
 		communication.setTelephone(communicationDTO.getTelephone());
 		communicationService.save(communication);
-		
-		//identifications details dto mapping
+
 		identity.setBpId(businessPartner.getBpId());
 		identity.setBirthPlace(identificationDTO.getBirthPlace());
 		identity.setCitizenship(identificationDTO.getCountry());
@@ -111,9 +112,9 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		identity.setPersonnelNo(identificationDTO.getPersonnelNo());
 		identity.setUserName(identificationDTO.getUname());
 		identificationService.save(identity);
-		
-		//payment dto mapping
-		for(PaymentDTO paymentDto:paymentDTO){
+
+		// payment DTO mapping
+		for (PaymentDTO paymentDto : paymentDTO) {
 			payment.setBpId(businessPartner.getBpId());
 			payment.setBankAccount(paymentDto.getBankAcct());
 			payment.setBankKey(paymentDto.getBankKey());

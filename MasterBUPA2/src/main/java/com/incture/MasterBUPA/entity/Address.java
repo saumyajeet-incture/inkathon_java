@@ -23,10 +23,10 @@ public class Address{
 	private String street2;
 	private String street4;
 	private String city;
-	private Long postalCode;
+	private String postalCode;
 	private String country;
 	private String email;
-	private Long telephone;
+	private String telephone;
 	/**
 	 * @return the addressId
 	 */
@@ -102,13 +102,13 @@ public class Address{
 	/**
 	 * @return the postalCode
 	 */
-	public Long getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
 	/**
 	 * @param postalCode the postalCode to set
 	 */
-	public void setPostalCode(Long postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 	/**
@@ -138,13 +138,13 @@ public class Address{
 	/**
 	 * @return the telephone
 	 */
-	public Long getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 	/**
 	 * @param telephone the telephone to set
 	 */
-	public void setTelephone(Long telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 	/* (non-Javadoc)
@@ -156,6 +156,7 @@ public class Address{
 				+ ", street4=" + street4 + ", city=" + city + ", postalCode=" + postalCode + ", country=" + country
 				+ ", email=" + email + ", telephone=" + telephone + "]";
 	}
+	
 }
 	
 	
