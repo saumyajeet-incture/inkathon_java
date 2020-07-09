@@ -14,30 +14,56 @@ import com.incture.MasterBUPA.dto.request.PaymentDTO;
 import com.incture.MasterBUPA.dto.request.SaveBupa;
 import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.entity.BusinessPartner;
+import com.incture.MasterBUPA.entity.CommunicationDetail;
+import com.incture.MasterBUPA.entity.Identification;
+import com.incture.MasterBUPA.entity.PaymentTransactions;
+import com.incture.MasterBUPA.service.abstraction.AddressService;
 import com.incture.MasterBUPA.service.abstraction.BUPAService;
+import com.incture.MasterBUPA.service.abstraction.CommunicationService;
+import com.incture.MasterBUPA.service.abstraction.IdentificationService;
 import com.incture.MasterBUPA.service.abstraction.MainBupaService;
+import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 
+/**
+ * @author ASHU
+ * @author SOUMYAJEET Mapping the DTO Services to MODEL services
+ */
 @Service
 public class MainBupaServiceImplementation implements MainBupaService {
-	
-	
-	private BusinessPartner businessPartner=new BusinessPartner();
-	private Address address=new Address();
-	
+
+	private BusinessPartner businessPartner = new BusinessPartner();
+	private Address address = new Address();
+	private CommunicationDetail communication = new CommunicationDetail();
+	private PaymentTransactions payment = new PaymentTransactions();
+	private Identification identity = new Identification();
+
 	@Autowired
 	private BUPAService bupaService;
+
+	@Autowired
+	AddressService addressService;
+
+	@Autowired
+	CommunicationService communicationService;
+
+	@Autowired
+	IdentificationService identificationService;
+
+	@Autowired
+	PaymentTransactionService paymentTransactionService;
 
 	@Override
 	public void save(SaveBupa saveBupa) {
 		// TODO Auto-generated method stub
-		List<AddressDTO>  addressDTO=saveBupa.getAddress();
-		
-		BupaDTO bupaDTO=saveBupa.getBasicDetails();
-		
-		CommunicationDTO communicationDTO=saveBupa.getCommunications();
-		IdentificationDTO identificationDTO=saveBupa.getIdentifications();
-		List<PaymentDTO> paymentDTO=saveBupa.getPayment();
-		
+		List<AddressDTO> addressDTO = saveBupa.getAddress();
+
+		BupaDTO bupaDTO = saveBupa.getBasicDetails();
+
+		CommunicationDTO communicationDTO = saveBupa.getCommunications();
+		IdentificationDTO identificationDTO = saveBupa.getIdentifications();
+		List<PaymentDTO> paymentDTO = saveBupa.getPayment();
+
+		// Business Partner DTO MAPPING
 		businessPartner.setBpRole(bupaDTO.getsRole());
 		businessPartner.setRoleId(UUID.randomUUID());
 		businessPartner.setFirstName(bupaDTO.getFname());
@@ -45,13 +71,32 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		businessPartner.setLastName(bupaDTO.getLname());
 		businessPartner.setSearchTerm1(bupaDTO.getsTerm1());
 		businessPartner.setSearchTerm2(bupaDTO.getsTerm2());
-		
 		bupaService.save(businessPartner);
-		
-		address.setBpId(businessPartner.getBpId());
-//		System.out.println("BP Id" +address.getBpId());
-		
-		
+
+		// ADDRESS DTO MAPPING
+		for (AddressDTO addressDto : addressDTO) {
+			address.setBpId(businessPartner.getBpId());
+			address.setCity(addressDto.getCity());
+			address.setCountry(addressDto.getCountry());
+			address.setEmail(addressDto.getEmail());
+			address.setPostalCode(addressDto.getPostalCode());
+			address.setStreet1(addressDto.getStreet());
+			address.setStreet2(addressDto.getStreet2());
+			address.setStreet4(addressDto.getStreet4());
+			address.setTelephone(addressDto.getTelephone());
+			addressService.save(address);
+		}
+
+		// COMMUNICATION DETAILS DTO MAPPING
+		communication.setBpId(businessPartner.getBpId());
+		communication.setComments(communicationDTO.getComments());
+		communication.setEmail(communicationDTO.getEmail());
+		communication.setExtAddress(communicationDTO.getExtAddress());
+		communication.setFax(communicationDTO.getFax());
+		communication.setMobile(communicationDTO.getMobile());
+		communication.setStandCommMethod(communicationDTO.getStandCommMethod());
+		communication.setTelephone(communicationDTO.getTelephone());
+		communicationService.save(communication);
 
 	}
 
