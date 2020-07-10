@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.incture.MasterBUPA.config.CustomSequenceGenerator;
+
 /**
  * @author SAUMYAJEET
  *
@@ -17,8 +19,14 @@ public class BusinessPartner {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer bpId;
-	
-	@Column(unique =true,nullable = false )
+	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
+	   @GenericGenerator(
+	            name = "role_seq", 
+	            strategy = "com.incture.MasterBUPA.config.CustomSequenceGenerator.java", 
+	            parameters = { 
+	                    @Parameter(name = CustomSequenceGenerator.INCREMENT_PARAM, value = "50"),
+	                    @Parameter(name = CustomSequenceGenerator.CODE_NUMBER_SEPARATOR_PARAMETER, value = "_"), 
+	                    @Parameter(name =CustomSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d")})
 	private UUID roleId;
 	private String firstName;
 	private String lastName;
