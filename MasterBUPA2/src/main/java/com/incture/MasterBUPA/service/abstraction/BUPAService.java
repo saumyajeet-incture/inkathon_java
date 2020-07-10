@@ -12,6 +12,6 @@ import com.incture.MasterBUPA.entity.BusinessPartner;
 @Service
 public interface BUPAService {
 	
-	public void save(BusinessPartner businessPartner);
+	public BusinessPartner save(BusinessPartner businessPartner);
 
 }

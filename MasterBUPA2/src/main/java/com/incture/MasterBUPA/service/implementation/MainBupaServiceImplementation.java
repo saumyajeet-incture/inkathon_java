@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.incture.MasterBUPA.dto.request.AddressDTO;
 import com.incture.MasterBUPA.dto.request.BupaDTO;
@@ -19,6 +20,11 @@ import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.entity.CommunicationDetail;
 import com.incture.MasterBUPA.entity.Identification;
 import com.incture.MasterBUPA.entity.PaymentTransactions;
+import com.incture.MasterBUPA.mapper.AddressMapper;
+import com.incture.MasterBUPA.mapper.BupaMapper;
+import com.incture.MasterBUPA.mapper.CommunicationMapper;
+import com.incture.MasterBUPA.mapper.IdentificationMapper;
+import com.incture.MasterBUPA.mapper.PaymentMapper;
 import com.incture.MasterBUPA.service.abstraction.AddressService;
 import com.incture.MasterBUPA.service.abstraction.BUPAService;
 import com.incture.MasterBUPA.service.abstraction.CommunicationService;
@@ -85,71 +91,33 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		IdentificationDTO identificationDTO = saveBupa.getIdentifications();
 		List<PaymentDTO> paymentDTO = saveBupa.getPayment();
 
-		// Business Partner DTO MAPPING
-		BusinessPartner businessPartner = new BusinessPartner();
-		businessPartner.setBpRole(bupaDTO.getsRole());
-		businessPartner.setRoleId(UUID.randomUUID());
-		businessPartner.setFirstName(bupaDTO.getFname());
-		businessPartner.setLangKey(bupaDTO.getsLanguage());
-		businessPartner.setLastName(bupaDTO.getLname());
-		businessPartner.setSearchTerm1(bupaDTO.getsTerm1());
-		businessPartner.setSearchTerm2(bupaDTO.getsTerm2());
-		bupaService.save(businessPartner);
+		BusinessPartner businessPartner=new BusinessPartner();
+		businessPartner.setBpId(0);
+		
+		businessPartner = bupaService.save(BupaMapper.checkBP(bupaDTO));
+		
+		
 		bp_id=businessPartner.getBpId();
+		System.out.println("business partner id"+ bp_id);
 
 		// ADDRESS DTO MAPPING
-		for (AddressDTO addressDto : addressDTO) {
-//			bp_id=businessPartner.getBpId();
-			System.out.println("bp_id is "+bp_id);
-		    Address address = new Address();
-			address.setBpId(bp_id);
-			address.setCity(addressDto.getCity());
-			address.setCountry(addressDto.getCountry());
-			address.setEmail(addressDto.getEmail());
-			address.setPostalCode(addressDto.getPostalCode());
-			address.setStreet1(addressDto.getStreet());
-			address.setStreet2(addressDto.getStreet2());
-			address.setStreet4(addressDto.getStreet4());
-			address.setTelephone(addressDto.getTelephone());
-			addressService.save(address);
+		
+		List<Address> address=AddressMapper.checkAddress(addressDTO, bp_id);
+		for(Address address2:address){
+			addressService.save(address2);
 		}
+		
 
 		// COMMUNICATION DETAILS DTO MAPPING
-		CommunicationDetail communication = new CommunicationDetail();
-		communication.setBpId(businessPartner.getBpId());
-		communication.setComments(communicationDTO.getComments());
-		communication.setEmail(communicationDTO.getEmail());
-		communication.setExtAddress(communicationDTO.getExtAddress());
-		communication.setFax(communicationDTO.getFax());
-		communication.setMobile(communicationDTO.getMobile());
-		communication.setStandCommMethod(communicationDTO.getStandCommMethod());
-		communication.setTelephone(communicationDTO.getTelephone());
-		communicationService.save(communication);
+		
+		communicationService.save(CommunicationMapper.checkCommunication(communicationDTO, bp_id));
 
-		Identification identity = new Identification();
-		identity.setBpId(businessPartner.getBpId());
-		identity.setBirthPlace(identificationDTO.getBirthPlace());
-		identity.setCitizenship(identificationDTO.getCountry());
-		identity.setCountryOfOrigin(identificationDTO.getCountryOfOrigin());
-		identity.setEmployeer(identificationDTO.getEmployer());
-		identity.setMaritalStatus(identificationDTO.getMaritalStatus());
-		identity.setNationalityStatus(identificationDTO.getNationality());
-		identity.setOccupation(identificationDTO.getOccupation());
-		identity.setPersonnelNo(identificationDTO.getPersonnelNo());
-		identity.setUserName(identificationDTO.getUname());
-		identificationService.save(identity);
+		identificationService.save(IdentificationMapper.checkIdentification(identificationDTO, bp_id));
 
 		// payment DTO mapping
-		for (PaymentDTO paymentDto : paymentDTO) {
-			PaymentTransactions payment = new PaymentTransactions();
-			payment.setBpId(businessPartner.getBpId());
-			payment.setBankAccount(paymentDto.getBankAcct());
-			payment.setBankKey(paymentDto.getBankKey());
-			payment.setControlKey(paymentDto.getControlKey());
-			payment.setiBAN(paymentDto.getIban());
-			payment.setPaymentCity(paymentDto.getpCity());
-			payment.setReferenceDocument(paymentDto.getRefDoc());
-			paymentTransactionService.save(payment);
+		List<PaymentTransactions> paymentList=PaymentMapper.checkPayment(paymentDTO, bp_id);
+		for(PaymentTransactions pt:paymentList){
+			paymentTransactionService.save(pt);
 		}
 		
 		return bp_id;

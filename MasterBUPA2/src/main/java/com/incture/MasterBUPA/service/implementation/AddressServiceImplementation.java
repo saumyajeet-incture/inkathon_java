@@ -24,7 +24,7 @@ public class AddressServiceImplementation implements AddressService {
 	@Override
 	public void save(Address address) {
 		// TODO Auto-generated method stub
-		addressRepository.save(address);
+		 addressRepository.save(address);
 	}
 
 }

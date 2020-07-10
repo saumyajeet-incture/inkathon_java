@@ -1,7 +1,10 @@
 package com.incture.MasterBUPA.dto.request;
 
+
+
 public class BupaDTO {
 	
+//	@NotNull(message="First name cannot be null")
 	private String fname;
 	private String lname;
 	private String sLanguage;

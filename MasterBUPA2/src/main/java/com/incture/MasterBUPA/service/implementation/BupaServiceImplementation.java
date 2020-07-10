@@ -19,9 +19,9 @@ public class BupaServiceImplementation implements BUPAService {
 	private BUPARepository bupaRepository;
 
 	@Override
-	public void save(BusinessPartner businessPartner) {
+	public BusinessPartner save(BusinessPartner businessPartner) {
 		// TODO Auto-generated method stub
-		bupaRepository.save(businessPartner);
+		return bupaRepository.save(businessPartner);
 	}
 	
 
