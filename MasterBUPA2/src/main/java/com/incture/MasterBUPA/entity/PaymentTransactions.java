@@ -15,7 +15,7 @@ public class PaymentTransactions{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer paymentId;
-	@Column(unique =true,nullable = false )
+	
 	private Integer bpId;
 	private String paymentCity;
 	private String bankKey;

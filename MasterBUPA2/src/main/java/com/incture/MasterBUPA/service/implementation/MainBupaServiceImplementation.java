@@ -3,6 +3,8 @@ package com.incture.MasterBUPA.service.implementation;
 import java.util.List;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +36,14 @@ import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 >>>>>>> branch 'new' of https://github.com/saumyajeet-incture/inkathon_java.git
  */
 @Service
+@Transactional
 public class MainBupaServiceImplementation implements MainBupaService {
 
-	private BusinessPartner businessPartner = new BusinessPartner();
-	private Address address = new Address();
-	private CommunicationDetail communication = new CommunicationDetail();
-	private PaymentTransactions payment = new PaymentTransactions();
-	private Identification identity = new Identification();
+//	private BusinessPartner businessPartner = new BusinessPartner();
+//	private Address address = new Address();
+//	private CommunicationDetail communication = new CommunicationDetail();
+//	private PaymentTransactions payment = new PaymentTransactions();
+//	private Identification identity = new Identification();
 	
 	public Integer bp_id;
 
@@ -83,6 +86,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		List<PaymentDTO> paymentDTO = saveBupa.getPayment();
 
 		// Business Partner DTO MAPPING
+		BusinessPartner businessPartner = new BusinessPartner();
 		businessPartner.setBpRole(bupaDTO.getsRole());
 		businessPartner.setRoleId(UUID.randomUUID());
 		businessPartner.setFirstName(bupaDTO.getFname());
@@ -91,11 +95,14 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		businessPartner.setSearchTerm1(bupaDTO.getsTerm1());
 		businessPartner.setSearchTerm2(bupaDTO.getsTerm2());
 		bupaService.save(businessPartner);
+		bp_id=businessPartner.getBpId();
 
 		// ADDRESS DTO MAPPING
 		for (AddressDTO addressDto : addressDTO) {
-			bp_id=businessPartner.getBpId();
-			address.setBpId(businessPartner.getBpId());
+//			bp_id=businessPartner.getBpId();
+			System.out.println("bp_id is "+bp_id);
+		    Address address = new Address();
+			address.setBpId(bp_id);
 			address.setCity(addressDto.getCity());
 			address.setCountry(addressDto.getCountry());
 			address.setEmail(addressDto.getEmail());
@@ -108,6 +115,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		}
 
 		// COMMUNICATION DETAILS DTO MAPPING
+		CommunicationDetail communication = new CommunicationDetail();
 		communication.setBpId(businessPartner.getBpId());
 		communication.setComments(communicationDTO.getComments());
 		communication.setEmail(communicationDTO.getEmail());
@@ -118,6 +126,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		communication.setTelephone(communicationDTO.getTelephone());
 		communicationService.save(communication);
 
+		Identification identity = new Identification();
 		identity.setBpId(businessPartner.getBpId());
 		identity.setBirthPlace(identificationDTO.getBirthPlace());
 		identity.setCitizenship(identificationDTO.getCountry());
@@ -132,6 +141,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 
 		// payment DTO mapping
 		for (PaymentDTO paymentDto : paymentDTO) {
+			PaymentTransactions payment = new PaymentTransactions();
 			payment.setBpId(businessPartner.getBpId());
 			payment.setBankAccount(paymentDto.getBankAcct());
 			payment.setBankKey(paymentDto.getBankKey());

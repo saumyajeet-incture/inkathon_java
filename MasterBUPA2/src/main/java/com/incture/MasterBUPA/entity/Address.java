@@ -17,7 +17,7 @@ public class Address{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer addressId;
 	
-	@Column(unique =true,nullable = false )
+	
 	private Integer bpId;
 	private String street1;
 	private String street2;
