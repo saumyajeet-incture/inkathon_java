@@ -92,7 +92,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 
 		bp_id = businessPartner.getBpId();
 		System.out.println("business partner id" + bp_id);
-
+		
 		List<Address> address = AddressMapper.checkAddress(addressDTO, bp_id);
 		for (Address address2 : address) {
 			addressService.save(address2);
