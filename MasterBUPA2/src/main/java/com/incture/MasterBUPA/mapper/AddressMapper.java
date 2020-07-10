@@ -11,7 +11,7 @@ public class AddressMapper {
 	public static List<Address> checkAddress(List<AddressDTO> addressDTO, Integer bp_id) {
 
 		List<Address> listAddress = new ArrayList<>();
-		;
+		
 		for (AddressDTO addressDto : addressDTO) {
 			// bp_id=businessPartner.getBpId();
 			if (addressDto.getCity() != "" && addressDto.getCountry() != "" && addressDto.getEmail() != ""
@@ -28,6 +28,7 @@ public class AddressMapper {
 				address.setStreet4(addressDto.getStreet4());
 				address.setTelephone(addressDto.getTelephone());
 				listAddress.add(address);
+				
 			}
 		}
 		return listAddress;

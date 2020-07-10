@@ -19,8 +19,9 @@ public class CommunicationMapper {
 			communication.setMobile(communicationDTO.getMobile());
 			communication.setStandCommMethod(communicationDTO.getStandCommMethod());
 			communication.setTelephone(communicationDTO.getTelephone());
+			return communication;
 		}
-		return communication;
+		return null;
 	}
 
 }

@@ -87,7 +87,8 @@ public class MainBupaServiceImplementation implements MainBupaService {
 		BusinessPartner businessPartner = new BusinessPartner();
 		businessPartner.setBpId(0);
 
-		businessPartner = bupaService.save(BupaMapper.checkBP(bupaDTO));
+		if(BupaMapper.checkBP(bupaDTO)!=null){
+		businessPartner = bupaService.save(BupaMapper.checkBP(bupaDTO));}
 
 		bp_id = businessPartner.getBpId();
 		System.out.println("business partner id" + bp_id);
@@ -97,10 +98,14 @@ public class MainBupaServiceImplementation implements MainBupaService {
 			addressService.save(address2);
 		}
 
-		communicationService.save(CommunicationMapper.checkCommunication(communicationDTO, bp_id));
+		if(CommunicationMapper.checkCommunication(communicationDTO, bp_id)!=null){
+		communicationService.save(CommunicationMapper.checkCommunication(communicationDTO, bp_id));}
 
+		if(IdentificationMapper.checkIdentification(identificationDTO, bp_id)!=null){
 		identificationService.save(IdentificationMapper.checkIdentification(identificationDTO, bp_id));
+		}
 
+		
 		List<PaymentTransactions> paymentList = PaymentMapper.checkPayment(paymentDTO, bp_id);
 		for (PaymentTransactions pt : paymentList) {
 			paymentTransactionService.save(pt);

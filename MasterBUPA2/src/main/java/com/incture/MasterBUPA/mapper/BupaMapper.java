@@ -25,7 +25,8 @@ public class BupaMapper {
 			businessPartner.setLastName(bupaDto.getLname());
 			businessPartner.setSearchTerm1(bupaDto.getsTerm1());
 			businessPartner.setSearchTerm2(bupaDto.getsTerm2());
+			return businessPartner;
 		}
-		return businessPartner;
+		return null;
 	}
 }

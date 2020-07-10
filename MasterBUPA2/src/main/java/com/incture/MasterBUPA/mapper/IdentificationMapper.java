@@ -1,5 +1,7 @@
 package com.incture.MasterBUPA.mapper;
 
+
+
 import com.incture.MasterBUPA.dto.request.IdentificationDTO;
 import com.incture.MasterBUPA.entity.Identification;
 
@@ -23,8 +25,9 @@ public class IdentificationMapper {
 			identity.setOccupation(identificationDTO.getOccupation());
 			identity.setPersonnelNo(identificationDTO.getPersonnelNo());
 			identity.setUserName(identificationDTO.getUname());
+			return identity;
 		}
-		return identity;
+		return null;
 
 	}
 
