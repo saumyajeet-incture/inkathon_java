@@ -1,6 +1,7 @@
 package com.incture.MasterBUPA.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import com.incture.MasterBUPA.service.abstraction.IdentificationService;
 import com.incture.MasterBUPA.service.abstraction.MainBupaService;
 import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("/bpc")
 public class BUPAController {
