@@ -1,5 +1,6 @@
 package com.incture.MasterBUPA.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import com.incture.MasterBUPA.dto.request.CommunicationDTO;
 import com.incture.MasterBUPA.dto.request.IdentificationDTO;
 import com.incture.MasterBUPA.dto.request.PaymentDTO;
 import com.incture.MasterBUPA.dto.request.SaveBupa;
+import com.incture.MasterBUPA.dto.response.IdDto;
 import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.entity.PaymentTransactions;
@@ -43,7 +45,10 @@ public class MainBupaServiceImplementation implements MainBupaService {
 	// private PaymentTransactions payment = new PaymentTransactions();
 	// private Identification identity = new Identification();
 
-	public Integer bp_id;
+	public Integer bp_id,role_id;
+	
+	
+	public IdDto idDto;
 
 	/**
 	 * @return the bp_id
@@ -76,7 +81,9 @@ public class MainBupaServiceImplementation implements MainBupaService {
 	PaymentTransactionService paymentTransactionService;
 
 	@Override
-	public Integer save(SaveBupa saveBupa) {
+	public IdDto save(SaveBupa saveBupa) {
+		
+		idDto=new IdDto();
 
 		List<AddressDTO> addressDTO = saveBupa.getAddress();
 		BupaDTO bupaDTO = saveBupa.getBasicDetails();
@@ -86,12 +93,30 @@ public class MainBupaServiceImplementation implements MainBupaService {
 
 		BusinessPartner businessPartner = new BusinessPartner();
 		businessPartner.setBpId(0);
+		
+		BusinessPartner businessPartner2 = new BusinessPartner();
+		businessPartner2=BupaMapper.checkBP(bupaDTO);
+		
 
 		if(BupaMapper.checkBP(bupaDTO)!=null){
-		businessPartner = bupaService.save(BupaMapper.checkBP(bupaDTO));}
+			
+			
+		businessPartner2.setRoleId((bupaService.findRoleId(businessPartner2.getBpRole()))+1);	
+//		businessPartner = bupaService.save(BupaMapper.checkBP(bupaDTO));
+		businessPartner = bupaService.save(businessPartner2);
+		
+		
+		}
 
 		bp_id = businessPartner.getBpId();
-		System.out.println("business partner id" + bp_id);
+		role_id=businessPartner.getRoleId();
+		
+		
+//		System.out.println("business partner id" + bp_id);
+//		System.out.println("role id" + role_id);
+		idDto.setBp_id(bp_id);
+		idDto.setRole_id(role_id);
+		
 		
 		List<Address> address = AddressMapper.checkAddress(addressDTO, bp_id);
 		for (Address address2 : address) {
@@ -111,7 +136,7 @@ public class MainBupaServiceImplementation implements MainBupaService {
 			paymentTransactionService.save(pt);
 		}
 
-		return bp_id;
+		return idDto;
 
 	}
 

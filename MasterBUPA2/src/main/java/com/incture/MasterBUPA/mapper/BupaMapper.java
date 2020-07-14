@@ -2,11 +2,17 @@ package com.incture.MasterBUPA.mapper;
 
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+
 import com.incture.MasterBUPA.dto.request.BupaDTO;
 import com.incture.MasterBUPA.entity.BusinessPartner;
+import com.incture.MasterBUPA.service.abstraction.BUPAService;
 
 //@Validated
 public class BupaMapper {
+	
+	
 
 	public static BusinessPartner checkBP(/* @Valid */ BupaDTO bupaDto) {
 
@@ -19,7 +25,9 @@ public class BupaMapper {
 		if (bupaDto.getFname() != "" && bupaDto.getLname() != "" && bupaDto.getsLanguage() != ""
 				&& bupaDto.getsRole() != "" && bupaDto.getsTerm1() != "" && bupaDto.getsTerm2() != "") {
 			businessPartner.setBpRole(bupaDto.getsRole());
-			businessPartner.setRoleId(UUID.randomUUID());
+//			businessPartner.setRoleId(UUID.randomUUID());
+			
+			
 			businessPartner.setFirstName(bupaDto.getFname());
 			businessPartner.setLangKey(bupaDto.getsLanguage());
 			businessPartner.setLastName(bupaDto.getLname());

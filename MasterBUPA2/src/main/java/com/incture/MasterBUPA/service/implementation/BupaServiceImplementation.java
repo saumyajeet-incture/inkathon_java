@@ -22,6 +22,13 @@ public class BupaServiceImplementation implements BUPAService {
 	public BusinessPartner save(BusinessPartner businessPartner) {
 		// TODO Auto-generated method stub
 		return bupaRepository.save(businessPartner);
+		
+	}
+
+	@Override
+	public Integer findRoleId(String bpRole) {
+		// TODO Auto-generated method stub
+		return bupaRepository.findRoleId(bpRole);
 	}
 	
 

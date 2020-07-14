@@ -1,5 +1,7 @@
 package com.incture.MasterBUPA.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.incture.MasterBUPA.dto.request.SaveBupa;
+import com.incture.MasterBUPA.dto.response.IdDto;
 import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.entity.CommunicationDetail;
@@ -51,8 +54,8 @@ public class BUPAController {
 	}
 	
 	@PostMapping("/saveBupa")
-	public Integer saveBupa(@RequestBody SaveBupa savebupa){
-		Integer bpId= mainBupaService.save(savebupa);
+	public IdDto saveBupa(@RequestBody SaveBupa savebupa){
+		IdDto bpId= mainBupaService.save(savebupa);
 		
 		
 		return bpId;

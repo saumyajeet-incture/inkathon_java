@@ -13,5 +13,7 @@ import com.incture.MasterBUPA.entity.BusinessPartner;
 public interface BUPAService {
 	
 	public BusinessPartner save(BusinessPartner businessPartner);
+	
+	public Integer findRoleId(String bpRole);
 
 }

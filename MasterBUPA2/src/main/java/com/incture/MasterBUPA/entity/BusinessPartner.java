@@ -18,8 +18,11 @@ public class BusinessPartner {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer bpId;
 	
-	@Column(unique =true,nullable = false )
-	private UUID roleId;
+//	@Column(unique =true,nullable = false )
+//	private UUID roleId;
+	
+	private Integer roleId;
+	
 	private String firstName;
 	private String lastName;
 	private String bpRole;
@@ -41,13 +44,13 @@ public class BusinessPartner {
 	/**
 	 * @return the roleId
 	 */
-	public UUID getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 	/**
 	 * @param uuid the roleId to set
 	 */
-	public void setRoleId(UUID uuid) {
+	public void setRoleId(Integer uuid) {
 		this.roleId = uuid;
 	}
 	/**
