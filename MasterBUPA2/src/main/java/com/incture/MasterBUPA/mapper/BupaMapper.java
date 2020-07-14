@@ -1,13 +1,7 @@
 package com.incture.MasterBUPA.mapper;
 
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-
 import com.incture.MasterBUPA.dto.request.BupaDTO;
 import com.incture.MasterBUPA.entity.BusinessPartner;
-import com.incture.MasterBUPA.service.abstraction.BUPAService;
 
 //@Validated
 public class BupaMapper {
