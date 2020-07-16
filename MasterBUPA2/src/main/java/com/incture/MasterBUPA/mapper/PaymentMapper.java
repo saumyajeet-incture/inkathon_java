@@ -29,6 +29,7 @@ public class PaymentMapper {
 			payment.setBankAccount(paymentDto.getBankAcct());
 			payment.setBankKey(paymentDto.getBankKey());
 			payment.setControlKey(paymentDto.getControlKey());
+			payment.setTransactionID(paymentDto.getId());
 			payment.setiBAN(paymentDto.getIban());
 			payment.setPaymentCity(paymentDto.getpCity());
 			payment.setReferenceDocument(paymentDto.getRefDoc());

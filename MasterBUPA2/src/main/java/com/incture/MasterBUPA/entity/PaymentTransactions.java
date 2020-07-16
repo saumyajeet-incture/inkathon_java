@@ -15,6 +15,8 @@ public class PaymentTransactions{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer paymentId;
 	
+	private String transactionID;
+	
 	private Integer bpId;
 	private String paymentCity;
 	private String bankKey;
@@ -118,10 +120,29 @@ public class PaymentTransactions{
 	public void setiBAN(String iBAN) {
 		this.iBAN = iBAN;
 	}
+	
+	
+	/**
+	 * @return the transactionID
+	 */
+	public String getTransactionID() {
+		return transactionID;
+	}
+	/**
+	 * @param transactionID the transactionID to set
+	 */
+	public void setTransactionID(String transactionID) {
+		this.transactionID = transactionID;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "PaymentTransactions [paymentId=" + paymentId + ", bpId=" + bpId + ", paymentCity=" + paymentCity
-				+ ", bankKey=" + bankKey + ", bankAccount=" + bankAccount + ", controlKey=" + controlKey
-				+ ", referenceDocument=" + referenceDocument + ", iBAN=" + iBAN + "]";
+		return "PaymentTransactions [paymentId=" + paymentId + ", transactionID=" + transactionID + ", bpId=" + bpId
+				+ ", paymentCity=" + paymentCity + ", bankKey=" + bankKey + ", bankAccount=" + bankAccount
+				+ ", controlKey=" + controlKey + ", referenceDocument=" + referenceDocument + ", iBAN=" + iBAN + "]";
 	}
+	
+	
 }
