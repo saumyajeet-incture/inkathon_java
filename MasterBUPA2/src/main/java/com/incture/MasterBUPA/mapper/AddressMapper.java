@@ -11,12 +11,21 @@ public class AddressMapper {
 	public static List<Address> checkAddress(List<AddressDTO> addressDTO, Integer bp_id) {
 
 		List<Address> listAddress = new ArrayList<>();
+		int fullEmpty;
 		
 		for (AddressDTO addressDto : addressDTO) {
 			// bp_id=businessPartner.getBpId();
-			if (addressDto.getCity() != "" && addressDto.getCountry() != "" && addressDto.getEmail() != ""
-					&& addressDto.getPostalCode() != "" && addressDto.getStreet() != "" && addressDto.getStreet2() != ""
-					&& addressDto.getStreet4() != "" && addressDto.getTelephone() != "") {
+			
+			if (addressDto.getCity() == "" && addressDto.getCountry() == "" && addressDto.getEmail() == ""
+					&& addressDto.getPostalCode() == "" && addressDto.getStreet() == "" && addressDto.getStreet2() == ""
+					&& addressDto.getStreet4() == "" && addressDto.getTelephone() == ""){
+				fullEmpty=1;
+			}
+			else{
+				fullEmpty=0;
+			}
+			
+			if (fullEmpty==0) {
 				Address address = new Address();
 				address.setBpId(bp_id);
 				address.setCity(addressDto.getCity());
@@ -28,7 +37,7 @@ public class AddressMapper {
 				address.setStreet4(addressDto.getStreet4());
 				address.setTelephone(addressDto.getTelephone());
 				listAddress.add(address);
-				
+				fullEmpty=-1;
 			}
 		}
 		return listAddress;

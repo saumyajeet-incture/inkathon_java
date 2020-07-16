@@ -10,11 +10,21 @@ public class IdentificationMapper {
 	public static Identification checkIdentification(IdentificationDTO identificationDTO, Integer bp_id) {
 
 		Identification identity = new Identification();
-		if (identificationDTO.getBirthPlace() != "" && identificationDTO.getCountry() != ""
-				&& identificationDTO.getCountryOfOrigin() != "" && identificationDTO.getEmployer() != ""
-				&& identificationDTO.getMaritalStatus() != "" && identificationDTO.getNationality() != ""
-				&& identificationDTO.getOccupation() != "" && identificationDTO.getPersonnelNo() != ""
-				&& identificationDTO.getUname() != "") {
+		
+		int fullEmpty;
+		
+		if(identificationDTO.getBirthPlace() == "" && identificationDTO.getCountry() == ""
+				&& identificationDTO.getCountryOfOrigin() == "" && identificationDTO.getEmployer() == ""
+				&& identificationDTO.getMaritalStatus() == "" && identificationDTO.getNationality() == ""
+				&& identificationDTO.getOccupation() == "" && identificationDTO.getPersonnelNo() == ""
+				&& identificationDTO.getUname() == ""){
+			fullEmpty=1;
+		}
+		else{
+			fullEmpty=0;
+		}
+		
+		if (fullEmpty==0) {
 			identity.setBpId(bp_id);
 			identity.setBirthPlace(identificationDTO.getBirthPlace());
 			identity.setCitizenship(identificationDTO.getCountry());
@@ -25,6 +35,7 @@ public class IdentificationMapper {
 			identity.setOccupation(identificationDTO.getOccupation());
 			identity.setPersonnelNo(identificationDTO.getPersonnelNo());
 			identity.setUserName(identificationDTO.getUname());
+			fullEmpty=-1;
 			return identity;
 		}
 		return null;
