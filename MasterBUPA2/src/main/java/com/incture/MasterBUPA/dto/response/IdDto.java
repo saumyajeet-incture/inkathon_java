@@ -4,6 +4,7 @@ public class IdDto {
 	
 	private Integer bp_id;
 	private Integer role_id;
+	private boolean status;
 	/**
 	 * @return the bp_id
 	 */
@@ -28,13 +29,32 @@ public class IdDto {
 	public void setRole_id(Integer role_id) {
 		this.role_id = role_id;
 	}
+	
+	
+	
+	/**
+	 * @return the status
+	 */
+	public boolean isStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "IdDto [bp_id=" + bp_id + ", role_id=" + role_id + "]";
+		return "IdDto [bp_id=" + bp_id + ", role_id=" + role_id + ", status=" + status + "]";
 	}
+	
 	
 
 }
