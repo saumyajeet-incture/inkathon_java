@@ -25,7 +25,7 @@ public class LookupRestController {
 	private LookUpServiceImplementation languageservice;
 	
 	@Autowired
-	private LookUpServiceImplementation genderservice;
+	private LookUpServiceImplementation referenceservice;
 	
 	@Autowired
 	private LookUpServiceImplementation maritalStatusservice;
@@ -53,7 +53,7 @@ public class LookupRestController {
 	
 	@GetMapping("/reference")
 	public List<ReferenceDocument> findReference(){
-		return genderservice.findReference();
+		return referenceservice.findReference();
 	}
 	
 	@GetMapping("/countries")
