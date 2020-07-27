@@ -1,5 +1,8 @@
 package com.incture.MasterBUPA.service.abstraction;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.incture.MasterBUPA.entity.Address;
@@ -14,5 +17,9 @@ import com.incture.MasterBUPA.entity.Address;
 public interface AddressService {
 	
 	public void save(Address address);
+	
+	public List<Address> getAllAddress();
+	
+	public List<Address> getAddressById(int id);
 
 }

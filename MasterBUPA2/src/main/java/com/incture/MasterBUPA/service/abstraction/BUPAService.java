@@ -19,5 +19,9 @@ public interface BUPAService {
 	public Integer findRoleId(String bpRole);
 	
 	public List<Object[]> checkIfExists(String bp_role, String first_name, String lang_key, String last_name, String search_term1, String search_term2);
+	
+	public List<BusinessPartner> getAllBusinessPartner();
+	
+	public BusinessPartner findByBpId(int bpId);
 
 }

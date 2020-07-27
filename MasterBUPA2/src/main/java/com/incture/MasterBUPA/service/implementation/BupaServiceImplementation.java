@@ -1,6 +1,7 @@
 package com.incture.MasterBUPA.service.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,19 @@ public class BupaServiceImplementation implements BUPAService {
 		// TODO Auto-generated method stub
 		
 		return bupaRepository.checkIfExists(bp_role, first_name, lang_key, last_name, search_term1, search_term2);
+	}
+
+	@Override
+	public List<BusinessPartner> getAllBusinessPartner() {
+		// TODO Auto-generated method stub
+		return bupaRepository.findAll();
+	}
+
+	@Override
+	public BusinessPartner findByBpId(int bpId) {
+		// TODO Auto-generated method stub
+		Optional<BusinessPartner> result=bupaRepository.findById(bpId);
+		return result.get();
 	}
 	
 
