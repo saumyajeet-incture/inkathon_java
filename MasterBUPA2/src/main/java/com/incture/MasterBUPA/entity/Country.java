@@ -20,6 +20,8 @@ public class Country{
 	private String country_code;
 	@Column(unique =true,nullable = false)
 	private String country_name;
+	@Column(nullable = false)
+	private String phone_code;
 	
 	/**
 	 * @return the country_id
@@ -63,10 +65,27 @@ public class Country{
 		this.country_name = country_name;
 	}
 
+	/**
+	 * @return the phone_code
+	 */
+	public String getPhone_code() {
+		return phone_code;
+	}
+
+	/**
+	 * @param phone_code the phone_code to set
+	 */
+	public void setPhone_code(String phone_code) {
+		this.phone_code = phone_code;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Country [country_id=" + country_id + ", country_code=" + country_code + ", country_name=" + country_name
-				+ "]";
+				+ ", phone_code=" + phone_code + "]";
 	}
 }
 	

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.incture.MasterBUPA.entity.BusinessRole;
 import com.incture.MasterBUPA.entity.Country;
-import com.incture.MasterBUPA.entity.Gender;
+import com.incture.MasterBUPA.entity.ReferenceDocument;
 import com.incture.MasterBUPA.entity.Language;
 import com.incture.MasterBUPA.entity.MaritalStatus;
 import com.incture.MasterBUPA.entity.Nationality;
@@ -51,9 +51,9 @@ public class LookupRestController {
 		return languageservice.findAllLanguages();
 	}
 	
-	@GetMapping("/gender")
-	public List<Gender> findGender(){
-		return genderservice.findGender();
+	@GetMapping("/reference")
+	public List<ReferenceDocument> findReference(){
+		return genderservice.findReference();
 	}
 	
 	@GetMapping("/countries")

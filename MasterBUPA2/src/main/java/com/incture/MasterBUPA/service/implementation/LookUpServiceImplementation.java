@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.incture.MasterBUPA.dao.BusinessRoleRepository;
 import com.incture.MasterBUPA.dao.CountryRepository;
-import com.incture.MasterBUPA.dao.GenderRepository;
+import com.incture.MasterBUPA.dao.ReferenceRepository;
 import com.incture.MasterBUPA.dao.LanguageRepository;
 import com.incture.MasterBUPA.dao.MaritalStatusRepository;
 import com.incture.MasterBUPA.dao.NationalityRepository;
@@ -15,7 +15,7 @@ import com.incture.MasterBUPA.dao.OccupationRepository;
 import com.incture.MasterBUPA.dao.StandCommMethodRepository;
 import com.incture.MasterBUPA.entity.BusinessRole;
 import com.incture.MasterBUPA.entity.Country;
-import com.incture.MasterBUPA.entity.Gender;
+import com.incture.MasterBUPA.entity.ReferenceDocument;
 import com.incture.MasterBUPA.entity.Language;
 import com.incture.MasterBUPA.entity.MaritalStatus;
 import com.incture.MasterBUPA.entity.Nationality;
@@ -39,7 +39,7 @@ public class LookUpServiceImplementation {
 	private MaritalStatusRepository maritalStatusRepository;
 
 	@Autowired
-	private GenderRepository genderRepository;
+	private ReferenceRepository referenceRepository;
 
 	@Autowired
 	private OccupationRepository occupationRepository;
@@ -80,9 +80,9 @@ public class LookUpServiceImplementation {
 		return countryRepository.findAll();
 	}
 
-	public List<Gender> findGender() {
-		//Give all the Details for Gender
-		return genderRepository.findAll();
+	public List<ReferenceDocument> findReference() {
+		//Give all the Details for Reference Documents
+		return referenceRepository.findAll();
 	}
 	
 	public List<Nationality> findNationality(){
