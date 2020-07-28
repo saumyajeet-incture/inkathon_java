@@ -25,6 +25,7 @@ public interface BUPARepository extends JpaRepository<BusinessPartner,Integer> {
 	@Query(value=query1, nativeQuery=true)
 	List<Object[]> checkIfExists(String bp_role,String first_name, String lang_key,String last_name,String search_term1,String search_term2);
 	
-	
-
+	String query2="SELECT BP_ROLE,FIRST_NAME,LANG_KEY,LAST_NAME,SEARCH_TERM1,SEARCH_TERM2 from BUSINESS_PARTNER where BP_ID=?1";
+	@Query(value=query2, nativeQuery=true)
+	List<Object[]> getBasicDetails(int bp_id);
 }
