@@ -1,13 +1,9 @@
 package com.incture.MasterBUPA.service.implementation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.incture.MasterBUPA.dto.response.DisplayResponse;
-import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.service.abstraction.AddressService;
 import com.incture.MasterBUPA.service.abstraction.BUPAService;
 import com.incture.MasterBUPA.service.abstraction.CommunicationService;

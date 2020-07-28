@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.incture.MasterBUPA.dao.bupa.PaymentRepository;
-import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.entity.PaymentTransactions;
 import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 
@@ -27,7 +26,8 @@ public class PaymentTransactionServiceImplementation implements PaymentTransacti
 	}
 
 	@Override
-	public List<PaymentTransactions> findPaymentTransactions() {
+	public List<
+	PaymentTransactions> findPaymentTransactions() {
 		// TODO Auto-generated method stub
 		return paymentRepository.findAll();
 	}

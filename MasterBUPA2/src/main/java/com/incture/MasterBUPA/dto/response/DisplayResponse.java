@@ -2,8 +2,6 @@ package com.incture.MasterBUPA.dto.response;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.entity.CommunicationDetail;
