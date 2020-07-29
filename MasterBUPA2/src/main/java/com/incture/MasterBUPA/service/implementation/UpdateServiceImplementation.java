@@ -50,6 +50,8 @@ public class UpdateServiceImplementation implements UpdateService {
 		CommunicationDTO communications = updateDTO.getCommunications();
 		IdentificationDTO identifications = updateDTO.getIdentifications();
 		Set<PaymentDTO> listPayment = updateDTO.getPayment();
+		
+		boolean bdStatus=false,adStatus=false, paymentStatus=false,identificationStatus=false,commStatus=false;
 
 		// =====================BUPA MAPPING=============================
 
@@ -65,6 +67,7 @@ public class UpdateServiceImplementation implements UpdateService {
 
 		if (bupaEntity.toString().equals(basicDetails.toString())) {
 			// status=1;
+			bdStatus=false;
 			System.out.println("basic data matched");
 		}
 		else{
@@ -75,19 +78,28 @@ public class UpdateServiceImplementation implements UpdateService {
 
 
 		Set<Object[]> listAddressDetail = addressRepo.getAddressDetail(id);
-
-		if(listAddressDetail.isEmpty()==false){
-		Set<AddressDTO> storeSetAddress = new HashSet<>();
-
-		Set<String> setString1 = new HashSet<>();
-		Set<String> setString2 = new HashSet<>();
-
 		
-		Iterator value = listAddressDetail.iterator();
+		Set<String> setString1 = new HashSet<>();
 		Iterator iterator1=listAddress.iterator();
 		while(iterator1.hasNext()){
 			setString1.add(iterator1.next().toString());
 		}
+
+		System.out.println("demo check "+(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")));
+		
+		if((listAddressDetail.isEmpty()==true)&&(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")==false)){
+			adStatus=true;
+		}
+		
+		if((listAddressDetail.isEmpty()==false)&&(!(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")))){
+		Set<AddressDTO> storeSetAddress = new HashSet<>();
+
+		adStatus=true;
+		Set<String> setString2 = new HashSet<>();
+
+		
+		Iterator value = listAddressDetail.iterator();
+		
 
 		while (value.hasNext()) {
 			AddressDTO addressDTO = new AddressDTO();
@@ -113,21 +125,29 @@ public class UpdateServiceImplementation implements UpdateService {
 		System.out.println("SET STRING 2" + setString2);
 
 		if (setString1.equals(setString2)) {
+			adStatus=false;
 			System.out.println("Address Matched");
 		} else {
 			System.out.println("Address not matched");
 		}
 		}
-		else{
-			System.out.println("Address not present");
+		else {
+			//adStatus=false;
+			System.out.println("Address not present or your input is empty "+adStatus);
 		}
-
-		// =====================COMMUNICATION
-		// MAPPING=============================
+		System.out.println("Set String "+setString1);
+		// =====================COMMUNICATION MAPPING=============================
+		
 
 		CommunicationDTO commEntity = new CommunicationDTO();
 		List<Object[]> listCommDetails = communicationRepo.getCommDetails(id);
-		if(listCommDetails.isEmpty()==false){
+		
+		if((listCommDetails.isEmpty()==true)&&(communications.toString().equals("CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]")==false)){
+			commStatus=true;
+		}
+		
+		if((listCommDetails.isEmpty()==false) && !(communications.toString().equals("CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]"))){
+		
 		commEntity.setComments((String) listCommDetails.get(0)[0]);
 		commEntity.setEmail((String) listCommDetails.get(0)[1]);
 		commEntity.setExtAddress((String) listCommDetails.get(0)[2]);
@@ -137,19 +157,25 @@ public class UpdateServiceImplementation implements UpdateService {
 		commEntity.setTelephone((String) listCommDetails.get(0)[6]);
 		if (commEntity.toString().equals(communications.toString())) {
 			// status=1;
+			commStatus=false;
 			System.out.println("comm details matched");
 		}
 		}
-		else{
-			System.out.println("Communication Details not present");
+		else {
+			//
+			System.out.println("Communication Details not present or your input is empty "+communications);
 		}
 
-		// =====================IDENTIFICATION
-		// MAPPING=============================
+		// =====================IDENTIFICATION MAPPING=============================
+		 
 
 		IdentificationDTO idEntity = new IdentificationDTO();
 		List<Object[]> listIdDetails = identificationRepo.getIdentificationDetails(id);
-		if(listIdDetails.isEmpty()==false){
+		if((listIdDetails.isEmpty()==true)&&(identifications.toString().equals("IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]")==false)){
+			identificationStatus=true;
+		}
+		if((listIdDetails.isEmpty()==false)&&!(identifications.toString().equals("IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]"))){
+		identificationStatus=true;
 		idEntity.setBirthPlace((String) listIdDetails.get(0)[0]);
 		idEntity.setCountry((String) listIdDetails.get(0)[1]);
 		idEntity.setCountryOfOrigin((String) listIdDetails.get(0)[2]);
@@ -161,29 +187,41 @@ public class UpdateServiceImplementation implements UpdateService {
 		idEntity.setUname((String) listIdDetails.get(0)[8]);
 		if (idEntity.toString().equals(identifications.toString())) {
 			// status=1;
+			identificationStatus=false;
 			System.out.println("Identification details matched");
 
 		}
 		}
-		else{
-			System.out.println("NOT PRESENT IDENTIFICATION");
+		else {
+			//identificationStatus=false;
+			System.out.println("NOT PRESENT IDENTIFICATION "+identifications);
 		}
 
-		// =====================PAYMENT TRANSACTION
-		// MAPPING=============================
+		// =====================PAYMENTTRANSACTION MAPPING=============================
+		
 
 		
 		Set<Object[]> listPaymentDetail = paymentRepo.getPaymentsDetail(id);
+		
+		Set<String> setString3 = new HashSet<>();
+		Iterator iterator3=listPayment.iterator();
+		while(iterator3.hasNext()){
+			setString3.add(iterator3.next().toString());
+		}
 
-		if(listPaymentDetail.isEmpty()==false){
+		if((listPaymentDetail.isEmpty()==true)&&(setString3.toString().equals("[PaymentDTO [id=, pCity=, bankKey=, bankAcct=, controlKey=, refDoc=, iban=]]")==false)){
+			paymentStatus=true;
+		}
+		
+		if((listPaymentDetail.isEmpty()==false)&&!(setString3.toString().equals("[PaymentDTO [id=, pCity=, bankKey=, bankAcct=, controlKey=, refDoc=, iban=]]"))){
 		Set<PaymentDTO> storeSetPayment = new HashSet<>();
 
-		Set<String> setString3 = new HashSet<>();
+		paymentStatus=true;
 		Set<String> setString4 = new HashSet<>();
 
 		System.out.println(listPaymentDetail.size());
 		Iterator value1= listPaymentDetail.iterator();
-		Iterator iterator3=listPayment.iterator();
+		
 		while(iterator3.hasNext()){
 			setString3.add(iterator3.next().toString());
 		}
@@ -213,12 +251,23 @@ public class UpdateServiceImplementation implements UpdateService {
 
 		if (setString3.equals(setString4)) {
 			System.out.println("Payment Matched");
+			paymentStatus=false;
 		} else {
 			System.out.println("Payment not matched");
 		}
 		}
+		else {
+			
+			System.out.println("payment not present or your input is null "+setString3);
+		}
+		
+		//================================
+		
+		if(bdStatus==false&&adStatus==false&&commStatus==false&&identificationStatus==false&&paymentStatus==false){
+			System.out.println("===NO UPDATE REQUIRED===");
+		}
 		else{
-			System.out.println("payment not present");
+			System.out.println("===UPDATE REQUIRED===");
 		}
 		return null;
 		
