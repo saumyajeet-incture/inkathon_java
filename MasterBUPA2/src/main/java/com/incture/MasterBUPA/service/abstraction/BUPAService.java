@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.incture.MasterBUPA.dto.response.PageResponse;
 import com.incture.MasterBUPA.entity.BusinessPartner;
+import org.springframework.data.domain.Sort;
 
 /**
  * @author SAUMYAJEET
@@ -23,5 +25,7 @@ public interface BUPAService {
 	public List<BusinessPartner> getAllBusinessPartner();
 	
 	public BusinessPartner findByBpId(int bpId);
+	
+	public PageResponse findBpByPage(Integer pno,Integer psize,String sortParam);
 
 }

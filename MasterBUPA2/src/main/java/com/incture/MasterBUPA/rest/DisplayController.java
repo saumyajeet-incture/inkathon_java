@@ -2,13 +2,16 @@ package com.incture.MasterBUPA.rest;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.incture.MasterBUPA.dto.response.DisplayResponse;
+import com.incture.MasterBUPA.dto.response.PageResponse;
 import com.incture.MasterBUPA.entity.Address;
 import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.entity.CommunicationDetail;
@@ -72,5 +75,41 @@ public class DisplayController {
 	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
 		return displayService.findEachData(bpId);
 	}
+	
+	
+	@GetMapping("/all/{roleId}")
+	public DisplayResponse findEveryThingByRoleId(@PathVariable Integer roleId){
+		return displayService.findEachData(bpId);
+	}
+	
+	@GetMapping("/all/{firstName}")
+	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
+		return displayService.findEachData(bpId);
+	}
+	
+	@GetMapping("/all/{lastName}")
+	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
+		return displayService.findEachData(bpId);
+	}
+	
+	@GetMapping("/all/{searchTerm1}")
+	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
+		return displayService.findEachData(bpId);
+	}
+	
+	@GetMapping("/all/{searchTerm2}")
+	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
+		return displayService.findEachData(bpId);
+	}
+	
+	
+	
+	@GetMapping("/page")
+	public PageResponse findBpByPage(@RequestParam(defaultValue="0") Integer pno, @RequestParam(defaultValue="8") Integer psize,@RequestParam(defaultValue="bpId") String sortParam){
+		return bupaService.findBpByPage(pno, psize,sortParam);
+		
+	}
+	
+	
 
 }
