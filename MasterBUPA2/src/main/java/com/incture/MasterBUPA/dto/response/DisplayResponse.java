@@ -16,6 +16,7 @@ public class DisplayResponse {
 	private CommunicationDetail commDetail;
 	private Identification identification;
 	private List<PaymentTransactions> paymentTransactions;
+	private Boolean status;
 	/**
 	 * @return the businessPartner
 	 */
@@ -79,10 +80,29 @@ public class DisplayResponse {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
+	/**
+	 * @return the status
+	 */
+	public Boolean getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "DisplayResponse [businessPartner=" + businessPartner + ", address=" + address + ", commDetail="
 				+ commDetail + ", identification=" + identification + ", paymentTransactions=" + paymentTransactions
+				+ ", status=" + status + ", getBusinessPartner()=" + getBusinessPartner() + ", getAddress()="
+				+ getAddress() + ", getCommDetail()=" + getCommDetail() + ", getIdentification()=" + getIdentification()
+				+ ", getPaymentTransactions()=" + getPaymentTransactions() + ", getStatus()=" + getStatus()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}
 	

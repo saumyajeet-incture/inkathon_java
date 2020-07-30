@@ -71,38 +71,31 @@ public class DisplayController {
 		return paymentService.findPaymentTransactions();
 	}
 	
-	@GetMapping("/all/{bpId}")
+	@GetMapping("/findByBpId/{bpId}")
 	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
 		return displayService.findEachData(bpId);
 	}
 	
 	
-	@GetMapping("/all/{roleId}")
+	@GetMapping("/findByRoleId/{roleId}")
 	public DisplayResponse findEveryThingByRoleId(@PathVariable Integer roleId){
-		return displayService.findEachData(bpId);
+		return displayService.findEachDatabyRoleId(roleId);
 	}
 	
-	@GetMapping("/all/{firstName}")
-	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
-		return displayService.findEachData(bpId);
+	@GetMapping("/findByFirstName/{firstName}")
+	public List<DisplayResponse> findEverythingbyfirstName(@PathVariable String firstName){
+		return displayService.findEachDatabyFirstName(firstName);
 	}
 	
-	@GetMapping("/all/{lastName}")
-	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
-		return displayService.findEachData(bpId);
+	@GetMapping("/findByLastName/{lastName}")
+	public List<DisplayResponse> findEverythingbyLastName(@PathVariable String lastName){
+		return displayService.findEachDatabyLastName(lastName);
 	}
 	
-	@GetMapping("/all/{searchTerm1}")
-	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
-		return displayService.findEachData(bpId);
+	@GetMapping("/findByRole/{role}")
+	public List<DisplayResponse> findEverythingbyRole(@PathVariable String role){
+		return displayService.findEachDatabyRole(role);
 	}
-	
-	@GetMapping("/all/{searchTerm2}")
-	public DisplayResponse findEveryThing(@PathVariable Integer bpId){
-		return displayService.findEachData(bpId);
-	}
-	
-	
 	
 	@GetMapping("/page")
 	public PageResponse findBpByPage(@RequestParam(defaultValue="0") Integer pno, @RequestParam(defaultValue="8") Integer psize,@RequestParam(defaultValue="bpId") String sortParam){

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.incture.MasterBUPA.entity.BusinessRole;
 import com.incture.MasterBUPA.entity.Country;
 import com.incture.MasterBUPA.entity.ReferenceDocument;
+import com.incture.MasterBUPA.entity.SearchParameter;
 import com.incture.MasterBUPA.entity.Language;
 import com.incture.MasterBUPA.entity.MaritalStatus;
 import com.incture.MasterBUPA.entity.Nationality;
@@ -44,6 +45,9 @@ public class LookupRestController {
 	
 	@Autowired
 	private LookUpServiceImplementation businessService;
+	
+	@Autowired
+	private LookUpServiceImplementation searchParamService;
 	
 	
 	@GetMapping("/languages")
@@ -84,6 +88,11 @@ public class LookupRestController {
 	@GetMapping("/businessRoles")
 	public List<BusinessRole> findAllRoles(){
 		return businessService.findBusinessRole();
+	}
+	
+	@GetMapping("/searchParameter")
+	public List<SearchParameter> findAllSearchParam(){
+		return searchParamService.findSearchParameter();
 	}
 
 }

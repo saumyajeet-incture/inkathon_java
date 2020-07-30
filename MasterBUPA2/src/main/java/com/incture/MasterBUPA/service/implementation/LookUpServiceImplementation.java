@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.incture.MasterBUPA.dao.BusinessRoleRepository;
 import com.incture.MasterBUPA.dao.CountryRepository;
 import com.incture.MasterBUPA.dao.ReferenceRepository;
+import com.incture.MasterBUPA.dao.SearchParameterRepository;
 import com.incture.MasterBUPA.dao.LanguageRepository;
 import com.incture.MasterBUPA.dao.MaritalStatusRepository;
 import com.incture.MasterBUPA.dao.NationalityRepository;
@@ -16,6 +17,7 @@ import com.incture.MasterBUPA.dao.StandCommMethodRepository;
 import com.incture.MasterBUPA.entity.BusinessRole;
 import com.incture.MasterBUPA.entity.Country;
 import com.incture.MasterBUPA.entity.ReferenceDocument;
+import com.incture.MasterBUPA.entity.SearchParameter;
 import com.incture.MasterBUPA.entity.Language;
 import com.incture.MasterBUPA.entity.MaritalStatus;
 import com.incture.MasterBUPA.entity.Nationality;
@@ -31,6 +33,9 @@ public class LookUpServiceImplementation {
 	
 	@Autowired
 	private LanguageRepository languageRepository;
+	
+	@Autowired
+	private SearchParameterRepository searchParamRepo;
 	
 	@Autowired
 	private CountryRepository countryRepository;
@@ -91,6 +96,10 @@ public class LookUpServiceImplementation {
 	
 	public List<BusinessRole> findBusinessRole(){
 		return businessRepository.findAll();
+	}
+	
+	public List<SearchParameter> findSearchParameter(){
+		return searchParamRepo.findAll();
 	}
 
 }
