@@ -26,6 +26,7 @@ import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 @RequestMapping("/bpc")
 public class BUPAController {
 	
+	
 	@Autowired
 	private BUPAService bupaService;
 	
