@@ -98,8 +98,8 @@ public class DisplayController {
 	}
 	
 	@GetMapping("/page")
-	public PageResponse findBpByPage(@RequestParam(defaultValue="0") Integer pno, @RequestParam(defaultValue="8") Integer psize,@RequestParam(defaultValue="bpId") String sortParam){
-		return bupaService.findBpByPage(pno, psize,sortParam);
+	public PageResponse findBpByPage(@RequestParam(defaultValue="0") Integer pno, @RequestParam(defaultValue="8") Integer psize,@RequestParam(defaultValue="bpId") String sortParam,@RequestParam(defaultValue="Ascending") String orderBy){
+		return bupaService.findBpByPage(pno, psize,sortParam,orderBy);
 		
 	}
 	

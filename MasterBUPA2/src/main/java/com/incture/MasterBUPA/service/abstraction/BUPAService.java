@@ -27,7 +27,7 @@ public interface BUPAService {
 	
 	public BusinessPartner findByBpId(int bpId);
 	
-	public PageResponse findBpByPage(Integer pno,Integer psize,String sortParam);
+	public PageResponse findBpByPage(Integer pno,Integer psize,String sortParam,String orderBy);
 	
 	public BusinessPartner findByRoleId(int rolId);
 	

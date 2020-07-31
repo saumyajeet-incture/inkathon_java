@@ -80,22 +80,36 @@ public class BupaServiceImplementation implements BUPAService {
 	//=================PAGINATION===========
 
 	@Override
-	public PageResponse findBpByPage(Integer pno, Integer psize,String sortParam) {
+	public PageResponse findBpByPage(Integer pno, Integer psize, String sortParam, String orderBy) {
 		// TODO Auto-generated method stub
 
-		
-		PageResponse pageResponse=new PageResponse();
-		
-		Pageable pageable=PageRequest.of(pno, psize, Sort.by(sortParam));
-		Page<BusinessPartner> pagedResult=bupaRepository.findAll(pageable);
-		
-		System.out.println(" pages "+pagedResult.getTotalPages());
-		
-		pageResponse.setListBusinessPartner(pagedResult.getContent());
-		pageResponse.setTotalPage(pagedResult.getTotalPages());
-		
-		return pageResponse;
-		
+		PageResponse pageResponse = new PageResponse();
+
+		if (orderBy.equals("Descending")) {
+			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).descending());
+			Page<BusinessPartner> pagedResult = bupaRepository.findAll(pageable);
+
+			System.out.println(" pages in descending " + pagedResult.getTotalPages());
+
+			pageResponse.setListBusinessPartner(pagedResult.getContent());
+			pageResponse.setTotalPage(pagedResult.getTotalPages());
+
+			return pageResponse;
+		}
+		else{
+			
+			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).ascending());
+			Page<BusinessPartner> pagedResult = bupaRepository.findAll(pageable);
+
+			System.out.println(" pages in ascending " + pagedResult.getTotalPages());
+
+			pageResponse.setListBusinessPartner(pagedResult.getContent());
+			pageResponse.setTotalPage(pagedResult.getTotalPages());
+
+			return pageResponse;
+			
+		}
+
 	}
 	
 	//=================FIND BY ROLE ID===========
