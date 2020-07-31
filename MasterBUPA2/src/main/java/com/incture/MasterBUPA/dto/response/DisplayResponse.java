@@ -2,20 +2,20 @@ package com.incture.MasterBUPA.dto.response;
 
 import java.util.List;
 
-import com.incture.MasterBUPA.entity.Address;
+import com.incture.MasterBUPA.dto.request.AddressDTO;
+import com.incture.MasterBUPA.dto.request.CommunicationDTO;
+import com.incture.MasterBUPA.dto.request.IdentificationDTO;
+import com.incture.MasterBUPA.dto.request.PaymentDTO;
 import com.incture.MasterBUPA.entity.BusinessPartner;
-import com.incture.MasterBUPA.entity.CommunicationDetail;
-import com.incture.MasterBUPA.entity.Identification;
-import com.incture.MasterBUPA.entity.PaymentTransactions;
 
 
 public class DisplayResponse {
 	
 	private BusinessPartner businessPartner;
-	private List<Address> address;
-	private CommunicationDetail commDetail;
-	private Identification identification;
-	private List<PaymentTransactions> paymentTransactions;
+	private List<AddressDTO> address;
+	private CommunicationDTO commDetail;
+	private IdentificationDTO identification;
+	private List<PaymentDTO> paymentTransactions;
 	private Boolean status;
 	/**
 	 * @return the businessPartner
@@ -23,78 +23,84 @@ public class DisplayResponse {
 	public BusinessPartner getBusinessPartner() {
 		return businessPartner;
 	}
-	/**
-	 * @param businessPartner the businessPartner to set
-	 */
-	public void setBusinessPartner(BusinessPartner businessPartner) {
-		this.businessPartner = businessPartner;
-	}
+	
 	/**
 	 * @return the address
 	 */
-	public List<Address> getAddress() {
+	public List<AddressDTO> getAddress() {
 		return address;
 	}
+
 	/**
 	 * @param address the address to set
 	 */
-	public void setAddress(List<Address> address) {
+	public void setAddress(List<AddressDTO> address) {
 		this.address = address;
 	}
+
 	/**
 	 * @return the commDetail
 	 */
-	public CommunicationDetail getCommDetail() {
+	public CommunicationDTO getCommDetail() {
 		return commDetail;
 	}
+
 	/**
 	 * @param commDetail the commDetail to set
 	 */
-	public void setCommDetail(CommunicationDetail commDetail) {
+	public void setCommDetail(CommunicationDTO commDetail) {
 		this.commDetail = commDetail;
 	}
+
 	/**
 	 * @return the identification
 	 */
-	public Identification getIdentification() {
+	public IdentificationDTO getIdentification() {
 		return identification;
 	}
+
 	/**
 	 * @param identification the identification to set
 	 */
-	public void setIdentification(Identification identification) {
+	public void setIdentification(IdentificationDTO identification) {
 		this.identification = identification;
 	}
+
 	/**
 	 * @return the paymentTransactions
 	 */
-	public List<PaymentTransactions> getPaymentTransactions() {
+	public List<PaymentDTO> getPaymentTransactions() {
 		return paymentTransactions;
 	}
+
 	/**
 	 * @param paymentTransactions the paymentTransactions to set
 	 */
-	public void setPaymentTransactions(List<PaymentTransactions> paymentTransactions) {
+	public void setPaymentTransactions(List<PaymentDTO> paymentTransactions) {
 		this.paymentTransactions = paymentTransactions;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	/**
 	 * @return the status
 	 */
 	public Boolean getStatus() {
 		return status;
 	}
+
 	/**
 	 * @param status the status to set
 	 */
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+
+	/**
+	 * @param businessPartner the businessPartner to set
 	 */
+	public void setBusinessPartner(BusinessPartner businessPartner) {
+		this.businessPartner = businessPartner;
+	}
+
 	@Override
 	public String toString() {
 		return "DisplayResponse [businessPartner=" + businessPartner + ", address=" + address + ", commDetail="

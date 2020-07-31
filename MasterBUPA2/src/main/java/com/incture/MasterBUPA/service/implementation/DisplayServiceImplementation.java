@@ -3,6 +3,7 @@ package com.incture.MasterBUPA.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.incture.MasterBUPA.dto.request.AddressDTO;
 import com.incture.MasterBUPA.dto.response.DisplayResponse;
 import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.service.abstraction.AddressService;
@@ -45,7 +46,7 @@ public class DisplayServiceImplementation implements DisplayService {
 		}
 			
 		displayResponse.setBusinessPartner(bupaService.findByBpId(bpId));
-		displayResponse.setAddress(addressService.getAddressById(bpId));
+		displayResponse.setAddress((AddressDTO)addressService.getAddressById(bpId));
 		displayResponse.setCommDetail(commService.getCommunicationById(bpId));
 		displayResponse.setIdentification(identificationService.findIdentificationById(bpId));
 		displayResponse.setPaymentTransactions(paymentService.findPaymentTransactionsById(bpId));
