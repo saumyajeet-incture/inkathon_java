@@ -2,8 +2,6 @@ package com.incture.MasterBUPA.service.abstraction;
 
 
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.incture.MasterBUPA.dto.response.DisplayResponse;
@@ -15,10 +13,10 @@ public interface DisplayService {
 	
 	public DisplayResponse findEachDatabyRoleId(int roleId);
 	
-	public List<DisplayResponse> findEachDatabyFirstName(String firstName);
-	
-	public List<DisplayResponse> findEachDatabyLastName(String lastName);
-	
-	public List<DisplayResponse> findEachDatabyRole(String role);
+//	public List<DisplayResponse> findEachDatabyFirstName(String firstName);
+//	
+//	public List<DisplayResponse> findEachDatabyLastName(String lastName);
+//	
+//		
 
 }

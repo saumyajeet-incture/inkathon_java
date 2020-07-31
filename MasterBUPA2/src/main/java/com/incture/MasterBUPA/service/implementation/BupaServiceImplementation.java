@@ -1,11 +1,9 @@
 package com.incture.MasterBUPA.service.implementation;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.incture.MasterBUPA.dao.bupa.BUPARepository;
-import com.incture.MasterBUPA.dto.response.DisplayResponse;
 import com.incture.MasterBUPA.dto.response.PageResponse;
 import com.incture.MasterBUPA.entity.BusinessPartner;
 import com.incture.MasterBUPA.service.abstraction.BUPAService;
@@ -144,21 +141,35 @@ public class BupaServiceImplementation implements BUPAService {
 	//===============FIND BY FIRST NAME===========
 
 	@Override
-	public List<Object[]> findByFirstName(String firstName) {
-		// TODO Auto-generated method stub
-		List<Object[]> findByFirstName=bupaRepository.getBasicDetailsByFirstName(firstName);
-		
-		return findByFirstName;
+	public PageResponse findByFirstName(String firstName,Integer pno,Integer psize) {
+		PageResponse pageResponse=new PageResponse();
+		Pageable pageable=PageRequest.of(pno,psize);
+		if(firstName!=""||firstName!=null)
+		{
+			Page<BusinessPartner> pageShow=bupaRepository.getBasicDetailsByFirstName(firstName, pageable);
+			pageResponse.setListBusinessPartner(pageShow.getContent());
+			pageResponse.setTotalPage(pageShow.getTotalPages());
+			return pageResponse;
+		}
+		else return null;
 	}
 
 	
 	//===============FIND BY LAST NAME===========
-	
 	@Override
-	public List<Object[]> findByLastName(String lastName) {
-		// TODO Auto-generated method stub
-		List<Object[]> findByLastName=bupaRepository.getBasicDetailsByLastName(lastName);
-		return findByLastName;
+	public PageResponse findByLastName(String lastName, Integer pno, Integer psize) {
+		
+		PageResponse pageResponse=new PageResponse();
+		Pageable pageable=PageRequest.of(pno,psize);
+		if(lastName!=""||lastName!=null)
+		{
+			Page<BusinessPartner> pageShow=bupaRepository.getBasicDetailsByLastName(lastName, pageable);
+			pageResponse.setListBusinessPartner(pageShow.getContent());
+			pageResponse.setTotalPage(pageShow.getTotalPages());
+			return pageResponse;
+		}
+		else 		
+		return null;
 	}
 
 	
@@ -166,12 +177,21 @@ public class BupaServiceImplementation implements BUPAService {
 	//==============FIND BY CUSTOMER/VENDOR========
 	
 	@Override
-	public List<Object[]> findByRole(String role) {
-		// TODO Auto-generated method stub
-		List<Object[]> findByRole=bupaRepository.getBasicDetailsByRole(role);
-		return findByRole;
+	public PageResponse findByRole(String role, Integer pno, Integer psize) {
+		PageResponse pageResponse=new PageResponse();
+		Pageable pageable=PageRequest.of(pno,psize);
+		if(role!=""||role!=null)
+		{
+			Page<BusinessPartner> pageShow=bupaRepository.getBasicDetailsByRole(role, pageable);
+			pageResponse.setListBusinessPartner(pageShow.getContent());
+			pageResponse.setTotalPage(pageShow.getTotalPages());
+			return pageResponse;
+		}
+		else 		
+		return null;
 	}
 
+	
 
 
 

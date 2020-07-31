@@ -82,19 +82,19 @@ public class DisplayController {
 		return displayService.findEachDatabyRoleId(roleId);
 	}
 	
-	@GetMapping("/findByFirstName/{firstName}")
-	public List<DisplayResponse> findEverythingbyfirstName(@PathVariable String firstName){
-		return displayService.findEachDatabyFirstName(firstName);
+	@GetMapping("/findByFirstName")
+	public PageResponse findByFirstName(String firstName,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="0") Integer psize){
+		return bupaService.findByFirstName(firstName,pno,psize);
 	}
 	
-	@GetMapping("/findByLastName/{lastName}")
-	public List<DisplayResponse> findEverythingbyLastName(@PathVariable String lastName){
-		return displayService.findEachDatabyLastName(lastName);
+	@GetMapping("/findByLastName")
+	public PageResponse findByLastName(String lastName,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="0") Integer psize){
+		return bupaService.findByLastName(lastName,pno,psize);
 	}
 	
-	@GetMapping("/findByRole/{role}")
-	public List<DisplayResponse> findEverythingbyRole(@PathVariable String role){
-		return displayService.findEachDatabyRole(role);
+	@GetMapping("/findByRole")
+	public PageResponse findByRole(String role,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="0") Integer psize){
+		return bupaService.findByRole(role,pno,psize);
 	}
 	
 	@GetMapping("/page")

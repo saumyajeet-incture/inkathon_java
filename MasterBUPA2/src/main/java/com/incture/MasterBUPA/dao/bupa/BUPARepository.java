@@ -2,6 +2,8 @@ package com.incture.MasterBUPA.dao.bupa;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -28,15 +30,16 @@ public interface BUPARepository extends JpaRepository<BusinessPartner, Integer> 
 	@Query(value = query3, nativeQuery = true)
 	List<Object[]> getBasicDetailsByRoleId(int role_id);
 	
-	String query4="SELECT BP_ROLE,LANG_KEY,LAST_NAME,SEARCH_TERM1,SEARCH_TERM2,BP_ID,ROLE_ID from BUSINESS_PARTNER where FIRST_NAME=?1";
+	String query4="SELECT * from BUSINESS_PARTNER where FIRST_NAME=?1";
 	@Query(value = query4, nativeQuery = true)
-	List<Object[]> getBasicDetailsByFirstName(String firstName);
+	Page<BusinessPartner> getBasicDetailsByFirstName(String firstName,Pageable pageable);
 	
-	String query5="SELECT BP_ROLE,LANG_KEY,FIRST_NAME,SEARCH_TERM1,SEARCH_TERM2,BP_ID,ROLE_ID from BUSINESS_PARTNER where LAST_NAME=?1";
+	String query5="SELECT * from BUSINESS_PARTNER where LAST_NAME=?1";
 	@Query(value = query5, nativeQuery = true)
-	List<Object[]> getBasicDetailsByLastName(String lastName);
+	Page<BusinessPartner> getBasicDetailsByLastName(String lastName, Pageable pageable);
 	
-	String query6="SELECT LAST_NAME,LANG_KEY,FIRST_NAME,SEARCH_TERM1,SEARCH_TERM2,BP_ID,ROLE_ID from BUSINESS_PARTNER where BP_ROLE=?1";
+	String query6="SELECT * from BUSINESS_PARTNER where BP_ROLE=?1";
 	@Query(value = query6, nativeQuery = true)
-	List<Object[]> getBasicDetailsByRole(String bpRole);
+	Page<BusinessPartner> getBasicDetailsByRole(String bpRole, Pageable pageable);
+	
 }
