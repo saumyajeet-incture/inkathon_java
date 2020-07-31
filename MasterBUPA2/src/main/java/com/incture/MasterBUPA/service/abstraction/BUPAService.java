@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.incture.MasterBUPA.dto.response.DisplayResponse;
 import com.incture.MasterBUPA.dto.response.PageResponse;
 import com.incture.MasterBUPA.entity.BusinessPartner;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 /**

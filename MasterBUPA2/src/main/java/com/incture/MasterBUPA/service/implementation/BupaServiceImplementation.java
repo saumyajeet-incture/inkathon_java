@@ -87,6 +87,9 @@ public class BupaServiceImplementation implements BUPAService {
 
 		if (orderBy.equals("Descending")) {
 			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).descending());
+			
+			
+			
 			Page<BusinessPartner> pagedResult = bupaRepository.findAll(pageable);
 
 			System.out.println(" pages in descending " + pagedResult.getTotalPages());
@@ -168,6 +171,8 @@ public class BupaServiceImplementation implements BUPAService {
 		List<Object[]> findByRole=bupaRepository.getBasicDetailsByRole(role);
 		return findByRole;
 	}
+
+
 
 
 }
