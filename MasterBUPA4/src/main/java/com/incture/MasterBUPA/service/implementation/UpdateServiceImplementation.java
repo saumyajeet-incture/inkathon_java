@@ -143,6 +143,10 @@ public class UpdateServiceImplementation implements UpdateService {
 			adStatus=true;
 		}
 		
+		if((listAddressDetail.isEmpty()==false)&&(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")==true)){
+			adStatus=true;
+		}
+		
 		if((listAddressDetail.isEmpty()==false)&&(!(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")))){
 		Set<AddressDTO> storeSetAddress = new HashSet<>();
 
@@ -200,6 +204,10 @@ public class UpdateServiceImplementation implements UpdateService {
 			commStatus=true;
 		}
 		
+		if((listCommDetails.isEmpty()==false)&&(communications.toString().equals("CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]")==true)){
+			commStatus=true;
+		}
+		
 		if((listCommDetails.isEmpty()==false) && !(communications.toString().equals("CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]"))){
 		
 		commStatus=true;
@@ -235,6 +243,12 @@ public class UpdateServiceImplementation implements UpdateService {
 		if((listIdDetails.isEmpty()==true)&&(identifications.toString().equals("IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]")==false)){
 			identificationStatus=true;
 		}
+		
+		if((listIdDetails.isEmpty()==false)&&(identifications.toString().equals("IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]")==true)){
+			identificationStatus=true;
+		}
+		
+		
 		if((listIdDetails.isEmpty()==false)&&!(identifications.toString().equals("IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]"))){
 		identificationStatus=true;
 		idEntity.setBirthPlace((String) listIdDetails.get(0)[0]);
@@ -277,6 +291,10 @@ public class UpdateServiceImplementation implements UpdateService {
 		}
 
 		if((listPaymentDetail.isEmpty()==true)&&(setString3.toString().equals("[PaymentDTO [id=, pCity=, bankKey=, bankAcct=, controlKey=, refDoc=, iban=]]")==false)){
+			paymentStatus=true;
+		}
+		
+		if((listPaymentDetail.isEmpty()==false)&&(setString3.toString().equals("[PaymentDTO [id=, pCity=, bankKey=, bankAcct=, controlKey=, refDoc=, iban=]]")==true)){
 			paymentStatus=true;
 		}
 		
@@ -363,52 +381,81 @@ public class UpdateServiceImplementation implements UpdateService {
 			if (commStatus == true) {
 				CommunicationDetail communiDetail = new CommunicationDetail();
 				communiDetail = CommunicationMapper.checkCommunication(communications, id);
-				if (communicationRepo.getCommunicationIdbyBpid(id) == null) {
-					communicationRepo.save(communiDetail);
+				if (communications.toString().equals(
+						"CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]")) {
+					Integer commId = communicationRepo.getCommunicationIdbyBpid(id);
+					communicationRepo.deleteById(commId);
 				} else {
-					communiDetail.setCommunicationId(communicationRepo.getCommunicationIdbyBpid(id));
-					communicationRepo.save(communiDetail);
+					if (communicationRepo.getCommunicationIdbyBpid(id) == null) {
+						communicationRepo.save(communiDetail);
+					} else {
+						communiDetail.setCommunicationId(communicationRepo.getCommunicationIdbyBpid(id));
+						communicationRepo.save(communiDetail);
+					}
 				}
 			}
-			if(identificationStatus==true){
-				Identification identification=new Identification();
-				identification=IdentificationMapper.checkIdentification(identifications, id);
-				
-				if(identificationRepo.getIdentificationIdbyBpid(id)==null){
-					identificationRepo.save(identification);
-				}
-				else{
-				identification.setIdentificationId(identificationRepo.getIdentificationIdbyBpid(id));
-				identificationRepo.save(identification);
-				}
-			}
-			if(adStatus==true){
-				List<AddressDTO> listAddressDto=new ArrayList<AddressDTO>(listAddress);
-				List<Address> addressList=AddressMapper.checkAddress(listAddressDto, id);
-				//addressRepo.deleteAddressById(id);
-				List<Integer> listBpId=addressRepo.findBpList(id);
-				for(int i=0;i<listBpId.size();i++){
-					addressRepo.deleteById(listBpId.get(i));;
-				}
-				for(int i=0;i<addressList.size();i++){
-					Address address=addressList.get(i);
-					addressRepo.save(address);
+			if (identificationStatus == true) {
+				Identification identification = new Identification();
+				identification = IdentificationMapper.checkIdentification(identifications, id);
+				if ((identifications.toString().equals(
+						"IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]") == true)) {
+					Integer identificationId = identificationRepo.getIdentificationIdbyBpid(id);
+					identificationRepo.deleteById(identificationId);
+				} else {
+					if (identificationRepo.getIdentificationIdbyBpid(id) == null) {
+						identificationRepo.save(identification);
+					} else {
+						identification.setIdentificationId(identificationRepo.getIdentificationIdbyBpid(id));
+						identificationRepo.save(identification);
+					}
 				}
 			}
-			if(paymentStatus==true){
-				
-				List<PaymentDTO> listPaymentDto=new ArrayList<PaymentDTO>(listPayment);
-				List<PaymentTransactions> paymentList=PaymentMapper.checkPayment(listPaymentDto, id);
-				//addressRepo.deleteAddressById(id);
-				List<Integer> listBpId=paymentRepo.findBpList(id);
-				for(int i=0;i<listBpId.size();i++){
-					paymentRepo.deleteById(listBpId.get(i));;
+			if (adStatus == true) {
+				List<AddressDTO> listAddressDto = new ArrayList<AddressDTO>(listAddress);
+				List<Address> addressList = AddressMapper.checkAddress(listAddressDto, id);
+				// addressRepo.deleteAddressById(id);
+
+				if (setString1.toString().equals(
+						"[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]") == true) {
+					List<Integer> listBpId = addressRepo.findBpList(id);
+					for (int i = 0; i < listBpId.size(); i++) {
+						addressRepo.deleteById(listBpId.get(i));
+					}
+				} else {
+					List<Integer> listBpId = addressRepo.findBpList(id);
+					for (int i = 0; i < listBpId.size(); i++) {
+						addressRepo.deleteById(listBpId.get(i));
+					}
+					for (int i = 0; i < addressList.size(); i++) {
+						Address address = addressList.get(i);
+						addressRepo.save(address);
+					}
 				}
-				for(int i=0;i<paymentList.size();i++){
-					PaymentTransactions paymentTransaction=paymentList.get(i);
-					paymentRepo.save(paymentTransaction);
+			}
+			if (paymentStatus == true) {
+
+				List<PaymentDTO> listPaymentDto = new ArrayList<PaymentDTO>(listPayment);
+				List<PaymentTransactions> paymentList = PaymentMapper.checkPayment(listPaymentDto, id);
+				// addressRepo.deleteAddressById(id);
+
+				if (setString3.toString().equals(
+						"[PaymentDTO [id=, pCity=, bankKey=, bankAcct=, controlKey=, refDoc=, iban=]]") == true) {
+					List<Integer> listBpId = paymentRepo.findBpList(id);
+					for (int i = 0; i < listBpId.size(); i++) {
+						paymentRepo.deleteById(listBpId.get(i));
+
+					}
+				} else {
+					List<Integer> listBpId = paymentRepo.findBpList(id);
+					for (int i = 0; i < listBpId.size(); i++) {
+						paymentRepo.deleteById(listBpId.get(i));
+
+					}
+					for (int i = 0; i < paymentList.size(); i++) {
+						PaymentTransactions paymentTransaction = paymentList.get(i);
+						paymentRepo.save(paymentTransaction);
+					}
 				}
-				
 			}
 			IdDto idDto=new IdDto();
 			idDto.setBp_id(id);
