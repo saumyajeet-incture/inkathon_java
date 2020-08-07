@@ -1,5 +1,5 @@
 applications:
--  name: MasterBUPA
+-  name: MasterBUPA2
    #memory: 1G
    path: target/MasterBUPA2-0.0.1-SNAPSHOT.war
    random-route: false

@@ -47,7 +47,7 @@ public class UpdateServiceImplementation implements UpdateService {
 
 	@Autowired
 	private BUPARepository bupaRepo;
-	
+
 	@Autowired
 	private HistoryRepository historyRepo;
 
@@ -62,25 +62,25 @@ public class UpdateServiceImplementation implements UpdateService {
 
 	@Autowired
 	private PaymentRepository paymentRepo;
-	
+
 	@Autowired
 	private BUPAService bupaService;
-	
+
 	@Autowired
 	private AddressService addressService;
-	
+
 	@Autowired
 	private CommunicationService commService;
-	
+
 	@Autowired
 	private IdentificationService identificationService;
-	
+
 	@Autowired
 	private PaymentTransactionService paymentService;
-	
+
 	@Autowired
 	private DisplayService displayService;
-	
+
 	@Autowired
 	private HistoryService historyService;
 
@@ -94,16 +94,15 @@ public class UpdateServiceImplementation implements UpdateService {
 		CommunicationDTO communications = updateDTO.getCommunications();
 		IdentificationDTO identifications = updateDTO.getIdentifications();
 		Set<PaymentDTO> listPayment = updateDTO.getPayment();
-		
-		boolean bdStatus=false,adStatus=false, paymentStatus=false,identificationStatus=false,commStatus=false;
-		
-		
+
+		boolean bdStatus = false, adStatus = false, paymentStatus = false, identificationStatus = false,
+				commStatus = false;
 
 		// =====================BUPA MAPPING=============================
 
 		BupaDTO bupaEntity = new BupaDTO();
 		List<Object[]> listBasicDetail = bupaRepo.getBasicDetails(id);
-		System.out.println("listBasicDetail size   "+listBasicDetail.size());
+		System.out.println("listBasicDetail size   " + listBasicDetail.size());
 		bupaEntity.setFname((String) listBasicDetail.get(0)[1]);
 		bupaEntity.setLname((String) listBasicDetail.get(0)[3]);
 		bupaEntity.setsLanguage((String) listBasicDetail.get(0)[2]);
@@ -111,269 +110,255 @@ public class UpdateServiceImplementation implements UpdateService {
 		bupaEntity.setsTerm2((String) listBasicDetail.get(0)[5]);
 		bupaEntity.setsRole((String) listBasicDetail.get(0)[0]);
 		// int status=0;
-		
-		System.out.println(" bupa entity "+bupaEntity);
-		
-		System.out.println(" bupa basic details "+basicDetails);
+
+		System.out.println(" bupa entity " + bupaEntity);
+
+		System.out.println(" bupa basic details " + basicDetails);
 
 		if (bupaEntity.toString().equals(basicDetails.toString())) {
 			// status=1;
-			bdStatus=false;
+			bdStatus = false;
 			System.out.println("basic data matched");
-		}
-		else{
-			bdStatus=true;
+		} else {
+			bdStatus = true;
 			System.out.println("basic data not matched");
 		}
 
 		// =====================ADDRESS MAPPING=============================
 
-
 		Set<Object[]> listAddressDetail = addressRepo.getAddressDetail(id);
-		
+
 		Set<String> setString1 = new HashSet<>();
-		Iterator iterator1=listAddress.iterator();
-		while(iterator1.hasNext()){
+		Iterator iterator1 = listAddress.iterator();
+		while (iterator1.hasNext()) {
 			setString1.add(iterator1.next().toString());
 		}
 
-		//System.out.println("demo check "+(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")));
-		
-		if((listAddressDetail.isEmpty()==true)&&(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")==false)){
-			adStatus=true;
+		if ((listAddressDetail.isEmpty() == true) && (listAddress.isEmpty() == false)) {
+			adStatus = true;
 		}
-		
-		if((listAddressDetail.isEmpty()==false)&&(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")==true)){
-			adStatus=true;
+
+		if ((listAddressDetail.isEmpty() == false) && (listAddress.isEmpty() == true)) {
+			adStatus = true;
 		}
-		
-		if((listAddressDetail.isEmpty()==false)&&(!(setString1.toString().equals("[AddressDTO [city=, country=, email=, postalCode=, street=, street2=, street4=, telephone=]]")))){
-		Set<AddressDTO> storeSetAddress = new HashSet<>();
 
-		adStatus=true;
-		Set<String> setString2 = new HashSet<>();
+		if ((listAddressDetail.isEmpty() == false) && (!(listAddress.isEmpty()))) {
+			Set<AddressDTO> storeSetAddress = new HashSet<>();
 
-		
-		Iterator value = listAddressDetail.iterator();
-		
+			adStatus = true;
+			Set<String> setString2 = new HashSet<>();
 
-		while (value.hasNext()) {
-			AddressDTO addressDTO = new AddressDTO();
-			Object[] objArray = (Object[]) value.next();
-			//System.out.println(objArray[1]);
-			for (int i = 0; i < objArray.length; i++) {
-				addressDTO.setCity((String) objArray[0]);
-				addressDTO.setCountry((String) objArray[1]);
-				addressDTO.setEmail((String) objArray[2]);
-				addressDTO.setPostalCode((String) objArray[3]);
-				addressDTO.setStreet((String) objArray[4]);
-				addressDTO.setStreet2((String) objArray[5]);
-				addressDTO.setStreet4((String) objArray[6]);
-				addressDTO.setTelephone((String) objArray[7]);
+			Iterator value = listAddressDetail.iterator();
+
+			while (value.hasNext()) {
+				AddressDTO addressDTO = new AddressDTO();
+				Object[] objArray = (Object[]) value.next();
+				// System.out.println(objArray[1]);
+				for (int i = 0; i < objArray.length; i++) {
+					addressDTO.setCity((String) objArray[0]);
+					addressDTO.setCountry((String) objArray[1]);
+					addressDTO.setEmail((String) objArray[2]);
+					addressDTO.setPostalCode((String) objArray[3]);
+					addressDTO.setStreet((String) objArray[4]);
+					addressDTO.setStreet2((String) objArray[5]);
+					addressDTO.setStreet4((String) objArray[6]);
+					addressDTO.setTelephone((String) objArray[7]);
+				}
+				storeSetAddress.add(addressDTO);
+				setString2.add(addressDTO.toString());
 			}
-			storeSetAddress.add(addressDTO);
-			setString2.add(addressDTO.toString());
-		}
 
-//		System.out.println("LIST ADDRESS " + listAddress);
-//		System.out.println("STORESETADDRESS " + storeSetAddress);
-		System.out.println("SET STRING 1" + setString1);
-		System.out.println("SET STRING 2" + setString2);
+			System.out.println("SET STRING 1" + setString1);
+			System.out.println("SET STRING 2" + setString2);
 
-		if (setString1.equals(setString2)) {
-			adStatus=false;
-			System.out.println("Address Matched");
+			if (setString1.equals(setString2)) {
+				adStatus = false;
+				System.out.println("Address Matched");
+			} else {
+
+				System.out.println("Address not matched");
+			}
 		} else {
-			
-			
-			System.out.println("Address not matched");
+			// adStatus=false;
+			System.out.println("Address not present or your input is empty " + adStatus);
 		}
-		}
-		else {
-			//adStatus=false;
-			System.out.println("Address not present or your input is empty "+adStatus);
-		}
-		//System.out.println("Set String "+setString1);
+
 		// =====================COMMUNICATION MAPPING=============================
 		
 
 		CommunicationDTO commEntity = new CommunicationDTO();
 		List<Object[]> listCommDetails = communicationRepo.getCommDetails(id);
-		
-		if((listCommDetails.isEmpty()==true)&&(communications.toString().equals("CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]")==false)){
-			commStatus=true;
+
+		if ((listCommDetails.isEmpty() == true) && (communications.toString().equals(
+				"CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]") == false)) {
+			commStatus = true;
 		}
-		
-		if((listCommDetails.isEmpty()==false)&&(communications.toString().equals("CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]")==true)){
-			commStatus=true;
+
+		if ((listCommDetails.isEmpty() == false) && (communications.toString().equals(
+				"CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]") == true)) {
+			commStatus = true;
 		}
-		
-		if((listCommDetails.isEmpty()==false) && !(communications.toString().equals("CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]"))){
-		
-		commStatus=true;
-		commEntity.setComments((String) listCommDetails.get(0)[0]);
-		commEntity.setEmail((String) listCommDetails.get(0)[1]);
-		commEntity.setExtAddress((String) listCommDetails.get(0)[2]);
-		commEntity.setFax((String) listCommDetails.get(0)[3]);
-		commEntity.setMobile((String) listCommDetails.get(0)[4]);
-		commEntity.setStandCommMethod((String) listCommDetails.get(0)[5]);
-		commEntity.setTelephone((String) listCommDetails.get(0)[6]);
-		
-		System.out.println(commEntity);
-		System.out.println(communications);
-		if (commEntity.toString().equals(communications.toString())) {
-			// status=1;
-			commStatus=false;
-			System.out.println("comm details matched");
-		}
-		else{
-			System.out.println("Comm details not matched");
-		}
-		}
-		else {
-			
-			System.out.println("Communication Details not present or your input is empty "+communications);
+
+		if ((listCommDetails.isEmpty() == false) && !(communications.toString().equals(
+				"CommunicationDTO [comments=, email=, extAddress=, fax=, mobile=, standCommMethod=, telephone=]"))) {
+
+			commStatus = true;
+			commEntity.setComments((String) listCommDetails.get(0)[0]);
+			commEntity.setEmail((String) listCommDetails.get(0)[1]);
+			commEntity.setExtAddress((String) listCommDetails.get(0)[2]);
+			commEntity.setFax((String) listCommDetails.get(0)[3]);
+			commEntity.setMobile((String) listCommDetails.get(0)[4]);
+			commEntity.setStandCommMethod((String) listCommDetails.get(0)[5]);
+			commEntity.setTelephone((String) listCommDetails.get(0)[6]);
+
+			System.out.println(commEntity);
+			System.out.println(communications);
+			if (commEntity.toString().equals(communications.toString())) {
+				// status=1;
+				commStatus = false;
+				System.out.println("comm details matched");
+			} else {
+				System.out.println("Comm details not matched");
+			}
+		} else {
+
+			System.out.println("Communication Details not present or your input is empty " + communications);
 		}
 
 		// =====================IDENTIFICATION MAPPING=============================
-		 
+		
 
 		IdentificationDTO idEntity = new IdentificationDTO();
 		List<Object[]> listIdDetails = identificationRepo.getIdentificationDetails(id);
-		if((listIdDetails.isEmpty()==true)&&(identifications.toString().equals("IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]")==false)){
-			identificationStatus=true;
+		if ((listIdDetails.isEmpty() == true) && (identifications.toString().equals(
+				"IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]") == false)) {
+			identificationStatus = true;
 		}
-		
-		if((listIdDetails.isEmpty()==false)&&(identifications.toString().equals("IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]")==true)){
-			identificationStatus=true;
-		}
-		
-		
-		if((listIdDetails.isEmpty()==false)&&!(identifications.toString().equals("IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]"))){
-		identificationStatus=true;
-		idEntity.setBirthPlace((String) listIdDetails.get(0)[0]);
-		idEntity.setCountry((String) listIdDetails.get(0)[1]);
-		idEntity.setCountryOfOrigin((String) listIdDetails.get(0)[2]);
-		idEntity.setEmployer((String) listIdDetails.get(0)[3]);
-		idEntity.setMaritalStatus((String) listIdDetails.get(0)[4]);
-		idEntity.setNationality((String) listIdDetails.get(0)[5]);
-		idEntity.setOccupation((String) listIdDetails.get(0)[6]);
-		idEntity.setPersonnelNo((String) listIdDetails.get(0)[7]);
-		idEntity.setUname((String) listIdDetails.get(0)[8]);
-		
-		System.out.println(idEntity);
-		System.out.println(identifications);
-		if (idEntity.toString().equals(identifications.toString())) {
-			// status=1;
-			identificationStatus=false;
-			System.out.println("Identification details matched");
 
+		if ((listIdDetails.isEmpty() == false) && (identifications.toString().equals(
+				"IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]") == true)) {
+			identificationStatus = true;
 		}
-		else{
-			System.out.println("Identification details not matched ");
-		}
-		}
-		else {
-			//identificationStatus=false;
-			System.out.println("NOT PRESENT IDENTIFICATION "+identifications);
+
+		if ((listIdDetails.isEmpty() == false) && !(identifications.toString().equals(
+				"IdentificationDTO [uname=, personnelNo=, birthPlace=, countryOfOrigin=, country=, employer=, maritalStatus=, nationality=, occupation=]"))) {
+			identificationStatus = true;
+			idEntity.setBirthPlace((String) listIdDetails.get(0)[0]);
+			idEntity.setCountry((String) listIdDetails.get(0)[1]);
+			idEntity.setCountryOfOrigin((String) listIdDetails.get(0)[2]);
+			idEntity.setEmployer((String) listIdDetails.get(0)[3]);
+			idEntity.setMaritalStatus((String) listIdDetails.get(0)[4]);
+			idEntity.setNationality((String) listIdDetails.get(0)[5]);
+			idEntity.setOccupation((String) listIdDetails.get(0)[6]);
+			idEntity.setPersonnelNo((String) listIdDetails.get(0)[7]);
+			idEntity.setUname((String) listIdDetails.get(0)[8]);
+
+			System.out.println(idEntity);
+			System.out.println(identifications);
+			if (idEntity.toString().equals(identifications.toString())) {
+				// status=1;
+				identificationStatus = false;
+				System.out.println("Identification details matched");
+
+			} else {
+				System.out.println("Identification details not matched ");
+			}
+		} else {
+			// identificationStatus=false;
+			System.out.println("NOT PRESENT IDENTIFICATION " + identifications);
 		}
 
 		// =====================PAYMENTTRANSACTION MAPPING=============================
 		
 
-		
 		Set<Object[]> listPaymentDetail = paymentRepo.getPaymentsDetail(id);
-		
+
 		Set<String> setString3 = new HashSet<>();
-		Iterator iterator3=listPayment.iterator();
-		while(iterator3.hasNext()){
+		Iterator iterator3 = listPayment.iterator();
+		while (iterator3.hasNext()) {
 			setString3.add(iterator3.next().toString());
 		}
 
-		if((listPaymentDetail.isEmpty()==true)&&(setString3.toString().equals("[PaymentDTO [id=, pCity=, bankKey=, bankAcct=, controlKey=, refDoc=, iban=]]")==false)){
-			paymentStatus=true;
-		}
-		
-		if((listPaymentDetail.isEmpty()==false)&&(setString3.toString().equals("[PaymentDTO [id=, pCity=, bankKey=, bankAcct=, controlKey=, refDoc=, iban=]]")==true)){
-			paymentStatus=true;
-		}
-		
-		if((listPaymentDetail.isEmpty()==false)&&!(setString3.toString().equals("[PaymentDTO [id=, pCity=, bankKey=, bankAcct=, controlKey=, refDoc=, iban=]]"))){
-		Set<PaymentDTO> storeSetPayment = new HashSet<>();
-
-		paymentStatus=true;
-		Set<String> setString4 = new HashSet<>();
-
-		//System.out.println(listPaymentDetail.size());
-		Iterator value1= listPaymentDetail.iterator();
-		
-		while(iterator3.hasNext()){
-			setString3.add(iterator3.next().toString());
+		if ((listPaymentDetail.isEmpty() == true) && (listPayment.isEmpty() == false)) {
+			paymentStatus = true;
 		}
 
-		while (value1.hasNext()) {
-			PaymentDTO paymentDTO = new PaymentDTO();
-			Object[] objArray1 = (Object[]) value1.next();
-			//System.out.println(objArray1[1]);
-			for (int i = 0; i < objArray1.length; i++) {
-				paymentDTO.setBankAcct((String) objArray1[0]);
-				paymentDTO.setBankKey((String) objArray1[1]);
-				paymentDTO.setControlKey((String) objArray1[2]);
-				paymentDTO.setIban((String) objArray1[3]);
-				paymentDTO.setId((String) objArray1[6]);
-				paymentDTO.setpCity((String) objArray1[4]);
-				paymentDTO.setRefDoc((String) objArray1[5]);
-				
+		if ((listPaymentDetail.isEmpty() == false) && (listPayment.isEmpty() == true)) {
+			paymentStatus = true;
+		}
+
+		if ((listPaymentDetail.isEmpty() == false) && !(listPayment.isEmpty())) {
+			Set<PaymentDTO> storeSetPayment = new HashSet<>();
+
+			paymentStatus = true;
+			Set<String> setString4 = new HashSet<>();
+
+			Iterator value1 = listPaymentDetail.iterator();
+
+			while (iterator3.hasNext()) {
+				setString3.add(iterator3.next().toString());
 			}
-			storeSetPayment.add(paymentDTO);
-			setString4.add(paymentDTO.toString());
-		}
 
-//		System.out.println("LIST PAYMENT " + listAddress);
-//		System.out.println("STORESETPAYMENT " + storeSetPayment);
-		System.out.println("SET STRING 3" + setString3);
-		System.out.println("SET STRING 4" + setString4);
+			while (value1.hasNext()) {
+				PaymentDTO paymentDTO = new PaymentDTO();
+				Object[] objArray1 = (Object[]) value1.next();
 
-		if (setString3.equals(setString4)) {
-			System.out.println("Payment Matched");
-			paymentStatus=false;
+				for (int i = 0; i < objArray1.length; i++) {
+					paymentDTO.setBankAcct((String) objArray1[0]);
+					paymentDTO.setBankKey((String) objArray1[1]);
+					paymentDTO.setControlKey((String) objArray1[2]);
+					paymentDTO.setIban((String) objArray1[3]);
+					paymentDTO.setId((String) objArray1[6]);
+					paymentDTO.setpCity((String) objArray1[4]);
+					paymentDTO.setRefDoc((String) objArray1[5]);
+
+				}
+				storeSetPayment.add(paymentDTO);
+				setString4.add(paymentDTO.toString());
+			}
+
+			System.out.println("SET STRING 3" + setString3);
+			System.out.println("SET STRING 4" + setString4);
+
+			if (setString3.equals(setString4)) {
+				System.out.println("Payment Matched");
+				paymentStatus = false;
+			} else {
+				System.out.println("Payment not matched");
+			}
 		} else {
-			System.out.println("Payment not matched");
+
+			System.out.println("payment not present or your input is null " + setString3);
 		}
-		}
-		else {
-			
-			System.out.println("payment not present or your input is null "+setString3);
-		}
-		
-		//================================
-		
-		if(bdStatus==false&&adStatus==false&&commStatus==false&&identificationStatus==false&&paymentStatus==false){
-			IdDto idDto=new IdDto();
+
+		// ================================
+
+		if (bdStatus == false && adStatus == false && commStatus == false && identificationStatus == false
+				&& paymentStatus == false) {
+			IdDto idDto = new IdDto();
 			idDto.setBp_id(id);
 			idDto.setRole_id(bupaRepo.getRoleIdByBpId(id));
 			idDto.setStatus(false);
-			
+
 			System.out.println("===NO UPDATE REQUIRED===");
 			return idDto;
-		}
-		else {
-			
-			HistoryDO historyDo=new HistoryDO();
-			
+		} else {
+
+			HistoryDO historyDo = new HistoryDO();
+
 			historyDo.setBpId(id);
-			System.out.println(displayService.findEachData(id).toString()+"  HISTORY DATA");
+			System.out.println(displayService.findEachData(id).toString() + "  HISTORY DATA");
 			historyDo.setHistoryData(displayService.findEachData(id).toString());
 			historyDo.setDate();
-			historyDo.setVersion(historyService.findVersion(id)+1);
-            historyRepo.save(historyDo);
-			System.out.println(historyDo+"    HISTORY DO");
-			
+			historyDo.setVersion(historyService.findVersion(id) + 1);
+			historyRepo.save(historyDo);
+			System.out.println(historyDo + "    HISTORY DO");
+
 			System.out.println("===UPDATE REQUIRED===");
-			
-			if(bdStatus==true){
-				BusinessPartner businessPartner=new BusinessPartner();
-				businessPartner=BupaMapper.checkBP(basicDetails);
+
+			if (bdStatus == true) {
+				BusinessPartner businessPartner = new BusinessPartner();
+				businessPartner = BupaMapper.checkBP(basicDetails);
 				businessPartner.setBpId(id);
 				businessPartner.setRoleId(bupaRepo.getRoleIdByBpId(id));
 				bupaRepo.save(businessPartner);
@@ -457,15 +442,14 @@ public class UpdateServiceImplementation implements UpdateService {
 					}
 				}
 			}
-			IdDto idDto=new IdDto();
+			IdDto idDto = new IdDto();
 			idDto.setBp_id(id);
 			idDto.setRole_id(bupaRepo.getRoleIdByBpId(id));
 			idDto.setStatus(true);
 			return idDto;
-			
+
 		}
-		
-		
+
 	}
 
 }
