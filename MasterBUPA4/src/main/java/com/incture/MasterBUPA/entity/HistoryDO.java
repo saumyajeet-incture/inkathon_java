@@ -1,7 +1,6 @@
 package com.incture.MasterBUPA.entity;
 
-import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -85,8 +84,8 @@ public class HistoryDO {
 	 */
 	public void setDate() {
 		
-		LocalDate localDate=LocalDate.now();
-		this.date = localDate.toString();
+		LocalDateTime localDateTime=LocalDateTime.now();
+		this.date = localDateTime.toString();
 	}
 
 	/**
