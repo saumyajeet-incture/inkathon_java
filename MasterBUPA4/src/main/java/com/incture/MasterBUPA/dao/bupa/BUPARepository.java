@@ -57,4 +57,15 @@ public interface BUPARepository extends JpaRepository<BusinessPartner, Integer> 
 	String query9="SELECT * from BUSINESS_PARTNER where LOWER(LAST_NAME) LIKE ?1% AND LOWER(BP_ROLE)=?2";
 	@Query(value=query9,nativeQuery=true)
 	Page<BusinessPartner> getByRoleAndLastName(String lastName, String bpRole, Pageable pageable);
+	
+	String query10= "SELECT * from BUSINESS_PARTNER where BP_ID=?1 AND LOWER(BP_ROLE)=?2";
+	@Query(value = query10, nativeQuery = true)
+	Page<BusinessPartner> getBasicDetailsByBpIdBpRole(int bp_id,String bpRole,Pageable pageable);
+	
+	String query11= "SELECT * from BUSINESS_PARTNER where ROLE_ID=?1 AND LOWER(BP_ROLE)=?2";
+	@Query(value = query11, nativeQuery = true)
+	Page<BusinessPartner> getBasicDetailsByRoleIdBpRole(int role_id,String bpRole,Pageable pageable);
+	
+	
+	
 }

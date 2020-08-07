@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.incture.MasterBUPA.dao.bupa.BUPARepository;
 import com.incture.MasterBUPA.dto.request.AddressDTO;
 import com.incture.MasterBUPA.dto.request.BupaDTO;
 import com.incture.MasterBUPA.dto.request.CommunicationDTO;
@@ -27,61 +31,60 @@ import com.incture.MasterBUPA.service.abstraction.PaymentTransactionService;
 
 @Service
 public class DisplayServiceImplementation implements DisplayService {
-	
-	
+
 	public SaveBupaResponse saveBupaResponse;
-	
+
 	@Autowired
 	private BUPAService bupaService;
-	
+
 	@Autowired
 	private AddressService addressService;
-	
+
 	@Autowired
 	private CommunicationService commService;
-	
+
 	@Autowired
 	private IdentificationService identificationService;
-	
+
 	@Autowired
 	private PaymentTransactionService paymentService;
-	
+
+	@Autowired
+	private BUPARepository bupaRepository;
 
 	@Override
 	public SaveBupaResponse findEachData(int bpId) {
 		// TODO Auto-generated method stub
-		//List<Address> listAddress=new ArrayList<>();
-		
-		BupaDTO basicDetails=new BupaDTO();
-		List<AddressDTO> address=new ArrayList<>();;
+		// List<Address> listAddress=new ArrayList<>();
+
+		BupaDTO basicDetails = new BupaDTO();
+		List<AddressDTO> address = new ArrayList<>();
+		;
 		CommunicationDTO communications;
 		IdentificationDTO identifications;
-		List<PaymentDTO> payment=new ArrayList<>();
-		saveBupaResponse=new SaveBupaResponse();
-		
-		
-		
-		//=====BASIC DETAILS MAPPING=======
-		if(bupaService.findByBpId(bpId)==null){
+		List<PaymentDTO> payment = new ArrayList<>();
+		saveBupaResponse = new SaveBupaResponse();
+
+		// =====BASIC DETAILS MAPPING=======
+		if (bupaService.findByBpId(bpId) == null) {
 			saveBupaResponse.setStatus(false);
 			return saveBupaResponse;
 		}
-		
+
 		saveBupaResponse.setStatus(true);
-		BusinessPartner businessPartner=new BusinessPartner();
-		businessPartner=bupaService.findByBpId(bpId);
+		BusinessPartner businessPartner = new BusinessPartner();
+		businessPartner = bupaService.findByBpId(bpId);
 		basicDetails.setFname(businessPartner.getFirstName());
 		basicDetails.setLname(businessPartner.getLastName());
 		basicDetails.setsLanguage(businessPartner.getLangKey());
 		basicDetails.setsRole(businessPartner.getBpRole());
 		basicDetails.setsTerm1(businessPartner.getSearchTerm1());
 		basicDetails.setsTerm2(businessPartner.getSearchTerm2());
-		
+
 		saveBupaResponse.setBasicDetails(basicDetails);
-		
-		
-		//=============ADDRESS MAPPING===========
-		
+
+		// =============ADDRESS MAPPING===========
+
 		int addressLength = 0;
 
 		Address addressEntity;
@@ -186,143 +189,171 @@ public class DisplayServiceImplementation implements DisplayService {
 	}
 
 	@Override
-	public PageResponse findEachDatabyRoleId(int roleId) {
-		// TODO Auto-generated method stub
-		List<BusinessPartner> listBusinessPartner=new ArrayList<>();
-     	BusinessPartner businessPartner=bupaService.findByRoleId(roleId);
-     	PageResponse pageResponse=new PageResponse();
-		if(businessPartner==null){
-			pageResponse.setTotalPage(0);;
+	public PageResponse findEachDatabyRoleIdBpRole(Integer roleId, String bpRole, Integer pno, Integer psize) {
+		if (bpRole == "" || bpRole == null) {
+			List<BusinessPartner> listBusinessPartner = new ArrayList<>();
+			BusinessPartner businessPartner = bupaService.findByRoleId(roleId);
+			PageResponse pageResponse = new PageResponse();
+			if (businessPartner == null) {
+				pageResponse.setTotalPage(0);
+				return pageResponse;
+			}
+			listBusinessPartner.add(businessPartner);
+			pageResponse.setListBusinessPartner(listBusinessPartner);
+			pageResponse.setTotalPage(1);
+			return pageResponse;
+		} else {
+			PageResponse pageResponse = new PageResponse();
+			Pageable pageable = PageRequest.of(0, 8);
+			Page<BusinessPartner> businessPage = bupaRepository.getBasicDetailsByRoleIdBpRole(roleId,
+					bpRole.toLowerCase(), pageable);
+			if (businessPage == null) {
+				pageResponse.setListBusinessPartner(null);
+				pageResponse.setTotalPage(0);
+				return pageResponse;
+			}
+			pageResponse.setListBusinessPartner(businessPage.getContent());
+			pageResponse.setTotalPage(businessPage.getTotalPages());
 			return pageResponse;
 		}
-		listBusinessPartner.add(businessPartner);
-		pageResponse.setListBusinessPartner(listBusinessPartner);
-		pageResponse.setTotalPage(1);
-		return pageResponse;
 	}
-//	}
+	// }
 
 	@Override
-	public PageResponse findDataByBpId(int bpId) {
-		// TODO Auto-generated method stub
-		List<BusinessPartner> listBusinessPartner=new ArrayList<>();
-		BusinessPartner businessPartner=new BusinessPartner();
-		PageResponse pageResponse=new PageResponse();
-		businessPartner=bupaService.findByBpId(bpId);
-		if(businessPartner==null){
-			pageResponse.setListBusinessPartner(null);
-			pageResponse.setTotalPage(0);
+	public PageResponse findDataByBpIdBpRole(Integer bpId, String bpRole, Integer pno, Integer psize) {
+		if (bpRole == "" || bpRole == null) {
+			List<BusinessPartner> listBusinessPartner = new ArrayList<>();
+			BusinessPartner businessPartner = new BusinessPartner();
+			PageResponse pageResponse = new PageResponse();
+			businessPartner = bupaService.findByBpId(bpId);
+			if (businessPartner == null) {
+				pageResponse.setListBusinessPartner(null);
+				pageResponse.setTotalPage(0);
+				return pageResponse;
+			}
+			listBusinessPartner.add(businessPartner);
+			pageResponse.setListBusinessPartner(listBusinessPartner);
+			pageResponse.setTotalPage(1);
+			return pageResponse;
+		} else {
+
+			PageResponse pageResponse = new PageResponse();
+			Pageable pageable = PageRequest.of(0, 8);
+			Page<BusinessPartner> businessPage = bupaRepository.getBasicDetailsByBpIdBpRole(bpId, bpRole.toLowerCase(),
+					pageable);
+			if (businessPage == null) {
+				pageResponse.setListBusinessPartner(null);
+				pageResponse.setTotalPage(0);
+				return pageResponse;
+			}
+			pageResponse.setListBusinessPartner(businessPage.getContent());
+			pageResponse.setTotalPage(businessPage.getTotalPages());
 			return pageResponse;
 		}
-		listBusinessPartner.add(businessPartner);
-		pageResponse.setListBusinessPartner(listBusinessPartner);
-		pageResponse.setTotalPage(1);
-		return pageResponse;
 	}
 
-
-//	@Override
-//	public List<DisplayResponse> findEachDatabyFirstName(String firstName) {
-//		// TODO Auto-generated method stub
-//		
-//		List<Object[]> listObject=bupaService.findByFirstName(firstName);
-//		
-//		List<DisplayResponse> listDisplay=new ArrayList<>();
-//		
-//		if(listObject.isEmpty()){
-//			DisplayResponse displayResponse=new DisplayResponse();
-//			displayResponse.setStatus(false);
-//			listDisplay.add(displayResponse);
-//			return listDisplay;
-//		}
-//		
-//		DisplayResponse displayResponse;
-//		
-//		for(int i=0;i<listObject.size();i++){
-//			displayResponse=new DisplayResponse();
-//			int bpId=(int) listObject.get(i)[5];
-//			
-//			displayResponse.setBusinessPartner(bupaService.findByBpId(bpId));
-//			displayResponse.setAddress(addressService.getAddressById(bpId));
-//			displayResponse.setCommDetail(commService.getCommunicationById(bpId));
-//			displayResponse.setIdentification(identificationService.findIdentificationById(bpId));
-//			displayResponse.setPaymentTransactions(paymentService.findPaymentTransactionsById(bpId));
-//			displayResponse.setStatus(true);
-//			listDisplay.add(displayResponse);
-//			
-//		}
-//		
-//		
-//		
-//		return listDisplay;
-//	}
-//
-//
-//	@Override
-//	public List<DisplayResponse> findEachDatabyLastName(String lastName) {
-//		// TODO Auto-generated method stub
-//		List<Object[]> listObject=bupaService.findByLastName(lastName);
-//		
-//		List<DisplayResponse> listDisplay=new ArrayList<>();
-//		
-//		if(listObject.isEmpty()){
-//			DisplayResponse displayResponse=new DisplayResponse();
-//			displayResponse.setStatus(false);
-//			listDisplay.add(displayResponse);
-//			return listDisplay;
-//		}
-//		
-//		DisplayResponse displayResponse;
-//		
-//		for(int i=0;i<listObject.size();i++){
-//			displayResponse=new DisplayResponse();
-//			int bpId=(int) listObject.get(i)[5];
-//			
-//			displayResponse.setBusinessPartner(bupaService.findByBpId(bpId));
-//			displayResponse.setAddress(addressService.getAddressById(bpId));
-//			displayResponse.setCommDetail(commService.getCommunicationById(bpId));
-//			displayResponse.setIdentification(identificationService.findIdentificationById(bpId));
-//			displayResponse.setPaymentTransactions(paymentService.findPaymentTransactionsById(bpId));
-//			displayResponse.setStatus(true);
-//			listDisplay.add(displayResponse);
-//			
-//		}
-//		
-//		return listDisplay;
-//	}
-//
-////
-//	@Override
-//	public List<DisplayResponse> findEachDatabyRole(String role) {
-//		// TODO Auto-generated method stub
-//		List<Object[]> listObject=bupaService.findByRole(role);
-//		
-//		List<DisplayResponse> listDisplay=new ArrayList<>();
-//		
-//		if(listObject.isEmpty()){
-//			DisplayResponse displayResponse=new DisplayResponse();
-//			displayResponse.setStatus(false);
-//			listDisplay.add(displayResponse);
-//			return listDisplay;
-//		}
-//		
-//		DisplayResponse displayResponse;
-//		
-//		for(int i=0;i<listObject.size();i++){
-//			displayResponse=new DisplayResponse();
-//			int bpId=(int) listObject.get(i)[5];
-//			
-//			displayResponse.setBusinessPartner(bupaService.findByBpId(bpId));
-//			displayResponse.setAddress(addressService.getAddressById(bpId));
-//			displayResponse.setCommDetail(commService.getCommunicationById(bpId));
-//			displayResponse.setIdentification(identificationService.findIdentificationById(bpId));
-//			displayResponse.setPaymentTransactions(paymentService.findPaymentTransactionsById(bpId));
-//			displayResponse.setStatus(true);
-//			listDisplay.add(displayResponse);
-//			
-//		}
-//		
-//		return listDisplay;
-//	}
-//
+	// @Override
+	// public List<DisplayResponse> findEachDatabyFirstName(String firstName) {
+	// // TODO Auto-generated method stub
+	//
+	// List<Object[]> listObject=bupaService.findByFirstName(firstName);
+	//
+	// List<DisplayResponse> listDisplay=new ArrayList<>();
+	//
+	// if(listObject.isEmpty()){
+	// DisplayResponse displayResponse=new DisplayResponse();
+	// displayResponse.setStatus(false);
+	// listDisplay.add(displayResponse);
+	// return listDisplay;
+	// }
+	//
+	// DisplayResponse displayResponse;
+	//
+	// for(int i=0;i<listObject.size();i++){
+	// displayResponse=new DisplayResponse();
+	// int bpId=(int) listObject.get(i)[5];
+	//
+	// displayResponse.setBusinessPartner(bupaService.findByBpId(bpId));
+	// displayResponse.setAddress(addressService.getAddressById(bpId));
+	// displayResponse.setCommDetail(commService.getCommunicationById(bpId));
+	// displayResponse.setIdentification(identificationService.findIdentificationById(bpId));
+	// displayResponse.setPaymentTransactions(paymentService.findPaymentTransactionsById(bpId));
+	// displayResponse.setStatus(true);
+	// listDisplay.add(displayResponse);
+	//
+	// }
+	//
+	//
+	//
+	// return listDisplay;
+	// }
+	//
+	//
+	// @Override
+	// public List<DisplayResponse> findEachDatabyLastName(String lastName) {
+	// // TODO Auto-generated method stub
+	// List<Object[]> listObject=bupaService.findByLastName(lastName);
+	//
+	// List<DisplayResponse> listDisplay=new ArrayList<>();
+	//
+	// if(listObject.isEmpty()){
+	// DisplayResponse displayResponse=new DisplayResponse();
+	// displayResponse.setStatus(false);
+	// listDisplay.add(displayResponse);
+	// return listDisplay;
+	// }
+	//
+	// DisplayResponse displayResponse;
+	//
+	// for(int i=0;i<listObject.size();i++){
+	// displayResponse=new DisplayResponse();
+	// int bpId=(int) listObject.get(i)[5];
+	//
+	// displayResponse.setBusinessPartner(bupaService.findByBpId(bpId));
+	// displayResponse.setAddress(addressService.getAddressById(bpId));
+	// displayResponse.setCommDetail(commService.getCommunicationById(bpId));
+	// displayResponse.setIdentification(identificationService.findIdentificationById(bpId));
+	// displayResponse.setPaymentTransactions(paymentService.findPaymentTransactionsById(bpId));
+	// displayResponse.setStatus(true);
+	// listDisplay.add(displayResponse);
+	//
+	// }
+	//
+	// return listDisplay;
+	// }
+	//
+	////
+	// @Override
+	// public List<DisplayResponse> findEachDatabyRole(String role) {
+	// // TODO Auto-generated method stub
+	// List<Object[]> listObject=bupaService.findByRole(role);
+	//
+	// List<DisplayResponse> listDisplay=new ArrayList<>();
+	//
+	// if(listObject.isEmpty()){
+	// DisplayResponse displayResponse=new DisplayResponse();
+	// displayResponse.setStatus(false);
+	// listDisplay.add(displayResponse);
+	// return listDisplay;
+	// }
+	//
+	// DisplayResponse displayResponse;
+	//
+	// for(int i=0;i<listObject.size();i++){
+	// displayResponse=new DisplayResponse();
+	// int bpId=(int) listObject.get(i)[5];
+	//
+	// displayResponse.setBusinessPartner(bupaService.findByBpId(bpId));
+	// displayResponse.setAddress(addressService.getAddressById(bpId));
+	// displayResponse.setCommDetail(commService.getCommunicationById(bpId));
+	// displayResponse.setIdentification(identificationService.findIdentificationById(bpId));
+	// displayResponse.setPaymentTransactions(paymentService.findPaymentTransactionsById(bpId));
+	// displayResponse.setStatus(true);
+	// listDisplay.add(displayResponse);
+	//
+	// }
+	//
+	// return listDisplay;
+	// }
+	//
 }

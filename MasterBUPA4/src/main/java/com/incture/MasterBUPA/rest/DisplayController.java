@@ -75,29 +75,29 @@ public class DisplayController {
 		return displayService.findEachData(bpId);
 	}
 	
-	@GetMapping("/findByBusinessId/{bpId}")
-	public PageResponse findBasicDatabyBpId(@PathVariable Integer bpId){
-		return displayService.findDataByBpId(bpId);
+	@GetMapping("/findByBusinessId")
+	public PageResponse findBasicDatabyBpId(Integer bpId,String bpRole,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="8") Integer psize){
+		return displayService.findDataByBpIdBpRole(bpId,bpRole,pno,psize);
 	}
 	
 	
-	@GetMapping("/findByRoleId/{roleId}")
-	public PageResponse findEveryThingByRoleId(@PathVariable Integer roleId){
-		return displayService.findEachDatabyRoleId(roleId);
+	@GetMapping("/findByRoleId")
+	public PageResponse findEveryThingByRoleId(Integer roleId,String bpRole,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="8") Integer psize){
+		return displayService.findEachDatabyRoleIdBpRole(roleId,bpRole,pno,psize);
 	}
 	
 	@GetMapping("/findByFirstName")
-	public PageResponse findByFirstName(String firstName,String bpRole,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="0") Integer psize){
+	public PageResponse findByFirstName(String firstName,String bpRole,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="8") Integer psize){
 		return bupaService.findByFirstName(firstName,bpRole,pno,psize);
 	}
 	
 	@GetMapping("/findByLastName")
-	public PageResponse findByLastName(String lastName,String bpRole,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="0") Integer psize){
+	public PageResponse findByLastName(String lastName,String bpRole,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="8") Integer psize){
 		return bupaService.findByLastName(lastName,bpRole,pno,psize);
 	}
 	
 	@GetMapping("/findByRole")
-	public PageResponse findByRole(String role,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="0") Integer psize){
+	public PageResponse findByRole(String role,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="8") Integer psize){
 		return bupaService.findByRole(role,pno,psize);
 	}
 	
