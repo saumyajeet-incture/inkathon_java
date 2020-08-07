@@ -9,6 +9,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.incture.MasterBUPA.dao.bupa.AddressRepository;
 import com.incture.MasterBUPA.dao.bupa.BUPARepository;
 import com.incture.MasterBUPA.dao.bupa.CommunicationRepository;
@@ -183,8 +185,8 @@ public class UpdateServiceImplementation implements UpdateService {
 			System.out.println("Address not present or your input is empty " + adStatus);
 		}
 
-		// =====================COMMUNICATION MAPPING=============================
-		
+		// =====================COMMUNICATION
+		// MAPPING=============================
 
 		CommunicationDTO commEntity = new CommunicationDTO();
 		List<Object[]> listCommDetails = communicationRepo.getCommDetails(id);
@@ -225,8 +227,8 @@ public class UpdateServiceImplementation implements UpdateService {
 			System.out.println("Communication Details not present or your input is empty " + communications);
 		}
 
-		// =====================IDENTIFICATION MAPPING=============================
-		
+		// =====================IDENTIFICATION
+		// MAPPING=============================
 
 		IdentificationDTO idEntity = new IdentificationDTO();
 		List<Object[]> listIdDetails = identificationRepo.getIdentificationDetails(id);
@@ -268,8 +270,8 @@ public class UpdateServiceImplementation implements UpdateService {
 			System.out.println("NOT PRESENT IDENTIFICATION " + identifications);
 		}
 
-		// =====================PAYMENTTRANSACTION MAPPING=============================
-		
+		// =====================PAYMENTTRANSACTION
+		// MAPPING=============================
 
 		Set<Object[]> listPaymentDetail = paymentRepo.getPaymentsDetail(id);
 
@@ -345,10 +347,16 @@ public class UpdateServiceImplementation implements UpdateService {
 		} else {
 
 			HistoryDO historyDo = new HistoryDO();
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+
+			Gson gson = builder.create();
 
 			historyDo.setBpId(id);
 			System.out.println(displayService.findEachData(id).toString() + "  HISTORY DATA");
-			historyDo.setHistoryData(displayService.findEachData(id).toString());
+			String saveBupaJSON = gson.toJson(displayService.findEachData(id));
+			System.out.println("GSON FROMAT IN STRING:" + saveBupaJSON);
+			historyDo.setHistoryData(saveBupaJSON);
 			historyDo.setDate();
 			historyDo.setVersion(historyService.findVersion(id) + 1);
 			historyRepo.save(historyDo);

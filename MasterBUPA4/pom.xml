@@ -60,6 +60,7 @@
 			<version>2.0.7.RELEASE</version>
 		</dependency>
 
+
 		<!-- https://mvnrepository.com/artifact/com.sap.cloud.db.jdbc/ngdbc -->
 		<dependency>
 			<groupId>com.sap.cloud.db.jdbc</groupId>
@@ -111,13 +112,11 @@
 			<artifactId>jaxb-api</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20190722</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
