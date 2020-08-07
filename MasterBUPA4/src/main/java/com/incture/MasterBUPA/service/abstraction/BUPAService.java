@@ -36,9 +36,9 @@ public interface BUPAService {
 
 //	public List<Object[]> findByRole(String role);
 
-	PageResponse findByFirstName(String firstName, Integer pno, Integer psize);
+	PageResponse findByFirstName(String firstName, String bpRole, Integer pno, Integer psize);
 
-	PageResponse findByLastName(String lastName, Integer pno, Integer psize);
+	PageResponse findByLastName(String lastName, String bpRole,  Integer pno, Integer psize);
 
 	PageResponse findByRole(String role, Integer pno, Integer psize);
 

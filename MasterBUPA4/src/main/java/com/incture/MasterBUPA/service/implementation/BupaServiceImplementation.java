@@ -22,59 +22,59 @@ import com.incture.MasterBUPA.service.abstraction.BUPAService;
 
 @Service
 public class BupaServiceImplementation implements BUPAService {
-	
+
 	@Autowired
 	private BUPARepository bupaRepository;
 	List<Object[]> findByRoleId;
-	
-	//==========SAVE BUSINESS PARTNER============
+
+	// ==========SAVE BUSINESS PARTNER============
 
 	@Override
 	public BusinessPartner save(BusinessPartner businessPartner) {
 		// TODO Auto-generated method stub
 		return bupaRepository.save(businessPartner);
-		
+
 	}
-	
-	//=============FINDING MAXIMUM ROLE ID TILL NOW==========
+
+	// =============FINDING MAXIMUM ROLE ID TILL NOW==========
 
 	@Override
 	public Integer findRoleId(String bpRole) {
 		// TODO Auto-generated method stub
 		return bupaRepository.findRoleId(bpRole);
 	}
-	
-	//===============CHECK IF ALREADY EXIST SAME DATA IN DB=================
+
+	// ===============CHECK IF ALREADY EXIST SAME DATA IN DB=================
 
 	@Override
 	public List<Object[]> checkIfExists(String bp_role, String first_name, String lang_key, String last_name,
 			String search_term1, String search_term2) {
 		// TODO Auto-generated method stub
-		
+
 		return bupaRepository.checkIfExists(bp_role, first_name, lang_key, last_name, search_term1, search_term2);
 	}
-	
-	//============GET ALL BUSINESS PARTNER======
+
+	// ============GET ALL BUSINESS PARTNER======
 
 	@Override
 	public List<BusinessPartner> getAllBusinessPartner() {
 		// TODO Auto-generated method stub
 		return bupaRepository.findAll();
 	}
-	
-	//===========FIND BY BP ID=============
+
+	// ===========FIND BY BP ID=============
 
 	@Override
 	public BusinessPartner findByBpId(int bpId) {
 		// TODO Auto-generated method stub
-		Optional<BusinessPartner> result=bupaRepository.findById(bpId);
-		if(result.isPresent()==false){
+		Optional<BusinessPartner> result = bupaRepository.findById(bpId);
+		if (result.isPresent() == false) {
 			return null;
 		}
 		return result.get();
 	}
-	
-	//=================PAGINATION===========
+
+	// =================PAGINATION===========
 
 	@Override
 	public PageResponse findBpByPage(Integer pno, Integer psize, String sortParam, String orderBy) {
@@ -84,9 +84,7 @@ public class BupaServiceImplementation implements BUPAService {
 
 		if (orderBy.equals("Descending")) {
 			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).descending());
-			
-			
-			
+
 			Page<BusinessPartner> pagedResult = bupaRepository.findAll(pageable);
 
 			System.out.println(" pages in descending " + pagedResult.getTotalPages());
@@ -95,9 +93,8 @@ public class BupaServiceImplementation implements BUPAService {
 			pageResponse.setTotalPage(pagedResult.getTotalPages());
 
 			return pageResponse;
-		}
-		else{
-			
+		} else {
+
 			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).ascending());
 			Page<BusinessPartner> pagedResult = bupaRepository.findAll(pageable);
 
@@ -107,12 +104,12 @@ public class BupaServiceImplementation implements BUPAService {
 			pageResponse.setTotalPage(pagedResult.getTotalPages());
 
 			return pageResponse;
-			
+
 		}
 
 	}
-	
-	//=================FIND BY ROLE ID===========
+
+	// =================FIND BY ROLE ID===========
 
 	@Override
 	public BusinessPartner findByRoleId(int rolId) {
@@ -122,12 +119,12 @@ public class BupaServiceImplementation implements BUPAService {
 		findByRoleId = bupaRepository.getBasicDetailsByRoleId(rolId);
 
 		if (findByRoleId.isEmpty()) {
-			
+
 			return null;
 
 		}
 		System.out.println(findByRoleId.get(0).toString());
-		businessPartner.setBpId( (Integer) findByRoleId.get(0)[6]);
+		businessPartner.setBpId((Integer) findByRoleId.get(0)[6]);
 		businessPartner.setBpRole((String) findByRoleId.get(0)[0]);
 		businessPartner.setFirstName((String) findByRoleId.get(0)[1]);
 		businessPartner.setLastName((String) findByRoleId.get(0)[3]);
@@ -137,62 +134,81 @@ public class BupaServiceImplementation implements BUPAService {
 		businessPartner.setLangKey((String) findByRoleId.get(0)[2]);
 		return businessPartner;
 	}
-	
-	//===============FIND BY FIRST NAME===========
+
+	// ===============FIND BY FIRST NAME===========
 
 	@Override
-	public PageResponse findByFirstName(String firstName,Integer pno,Integer psize) {
-		PageResponse pageResponse=new PageResponse();
-		Pageable pageable=PageRequest.of(pno,psize);
-		if(firstName!=""||firstName!=null)
-		{
-			Page<BusinessPartner> pageShow=bupaRepository.getBasicDetailsByFirstName(firstName.toLowerCase(), pageable);
-			pageResponse.setListBusinessPartner(pageShow.getContent());
-			pageResponse.setTotalPage(pageShow.getTotalPages());
-			return pageResponse;
+	public PageResponse findByFirstName(String firstName, String bpRole, Integer pno, Integer psize) {
+
+		if (bpRole == null || bpRole == "") {
+			PageResponse pageResponse = new PageResponse();
+			Pageable pageable = PageRequest.of(pno, psize);
+			if (firstName != "" || firstName != null) {
+				Page<BusinessPartner> pageShow = bupaRepository.getBasicDetailsByFirstName(firstName.toLowerCase(),
+						pageable);
+				pageResponse.setListBusinessPartner(pageShow.getContent());
+				pageResponse.setTotalPage(pageShow.getTotalPages());
+				return pageResponse;
+			} else
+				return null;
+		} else {
+
+			PageResponse pageResponse = new PageResponse();
+			Pageable pageable = PageRequest.of(pno, psize);
+			if (firstName != "" || firstName != null) {
+				Page<BusinessPartner> pageShow = bupaRepository.getByRoleAndName(firstName.toLowerCase(),
+						bpRole.toLowerCase(), pageable);
+				pageResponse.setListBusinessPartner(pageShow.getContent());
+				pageResponse.setTotalPage(pageShow.getTotalPages());
+				return pageResponse;
+			} else
+				return null;
+
 		}
-		else return null;
 	}
 
-	
-	//===============FIND BY LAST NAME===========
+	// ===============FIND BY LAST NAME===========
 	@Override
-	public PageResponse findByLastName(String lastName, Integer pno, Integer psize) {
-		
-		PageResponse pageResponse=new PageResponse();
-		Pageable pageable=PageRequest.of(pno,psize);
-		if(lastName!=""||lastName!=null)
-		{
-			Page<BusinessPartner> pageShow=bupaRepository.getBasicDetailsByLastName(lastName.toLowerCase(), pageable);
-			pageResponse.setListBusinessPartner(pageShow.getContent());
-			pageResponse.setTotalPage(pageShow.getTotalPages());
-			return pageResponse;
+	public PageResponse findByLastName(String lastName, String bpRole, Integer pno, Integer psize) {
+
+		if (bpRole == "" || bpRole == null) {
+			PageResponse pageResponse = new PageResponse();
+			Pageable pageable = PageRequest.of(pno, psize);
+			if (lastName != "" || lastName != null) {
+				Page<BusinessPartner> pageShow = bupaRepository.getBasicDetailsByLastName(lastName.toLowerCase(),
+						pageable);
+				pageResponse.setListBusinessPartner(pageShow.getContent());
+				pageResponse.setTotalPage(pageShow.getTotalPages());
+				return pageResponse;
+			} else
+				return null;
+		} else {
+			PageResponse pageResponse = new PageResponse();
+			Pageable pageable = PageRequest.of(pno, psize);
+			if (lastName != "" || lastName != null) {
+				Page<BusinessPartner> pageShow = bupaRepository.getByRoleAndLastName(lastName.toLowerCase(),
+						bpRole.toLowerCase(), pageable);
+				pageResponse.setListBusinessPartner(pageShow.getContent());
+				pageResponse.setTotalPage(pageShow.getTotalPages());
+				return pageResponse;
+			} else
+				return null;
 		}
-		else 		
-		return null;
 	}
 
-	
-	
-	//==============FIND BY CUSTOMER/VENDOR========
-	
+	// ==============FIND BY CUSTOMER/VENDOR========
+
 	@Override
 	public PageResponse findByRole(String role, Integer pno, Integer psize) {
-		PageResponse pageResponse=new PageResponse();
-		Pageable pageable=PageRequest.of(pno,psize);
-		if(role!=""||role!=null)
-		{
-			Page<BusinessPartner> pageShow=bupaRepository.getBasicDetailsByRole(role.toLowerCase(), pageable);
+		PageResponse pageResponse = new PageResponse();
+		Pageable pageable = PageRequest.of(pno, psize);
+		if (role != "" || role != null) {
+			Page<BusinessPartner> pageShow = bupaRepository.getBasicDetailsByRole(role.toLowerCase(), pageable);
 			pageResponse.setListBusinessPartner(pageShow.getContent());
 			pageResponse.setTotalPage(pageShow.getTotalPages());
 			return pageResponse;
-		}
-		else 		
-		return null;
+		} else
+			return null;
 	}
-
-	
-
-
 
 }
