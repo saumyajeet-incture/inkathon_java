@@ -1,6 +1,7 @@
 package com.incture.MasterBUPA.entity;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -84,7 +85,7 @@ public class HistoryDO {
 	 */
 	public void setDate() {
 		
-		LocalDateTime localDateTime=LocalDateTime.now();
+		LocalDateTime localDateTime=LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
 		this.date = localDateTime.toString();
 	}
 

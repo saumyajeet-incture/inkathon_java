@@ -83,7 +83,11 @@ public class BupaServiceImplementation implements BUPAService {
 		PageResponse pageResponse = new PageResponse();
 
 		if (orderBy.equals("Descending")) {
-			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).descending());
+//			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).descending());
+			
+			Sort.Order order = new Sort.Order(Sort.Direction.DESC, sortParam).ignoreCase();
+			
+			Pageable pageable = PageRequest.of(pno, psize, Sort.by(order));
 
 			Page<BusinessPartner> pagedResult = bupaRepository.findAll(pageable);
 
@@ -95,7 +99,11 @@ public class BupaServiceImplementation implements BUPAService {
 			return pageResponse;
 		} else {
 
-			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).ascending());
+//			Pageable pageable = PageRequest.of(pno, psize, Sort.by(sortParam).ascending());
+			
+			Sort.Order order = new Sort.Order(Sort.Direction.ASC, sortParam).ignoreCase();
+			
+			Pageable pageable = PageRequest.of(pno, psize, Sort.by(order));
 			Page<BusinessPartner> pagedResult = bupaRepository.findAll(pageable);
 
 			System.out.println(" pages in ascending " + pagedResult.getTotalPages());
