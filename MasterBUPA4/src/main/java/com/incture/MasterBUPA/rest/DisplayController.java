@@ -88,12 +88,12 @@ public class DisplayController {
 	
 	@GetMapping("/findByFirstName")
 	public PageResponse findByFirstName(String firstName,String bpRole,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="8") Integer psize){
-		return bupaService.findByFirstName(firstName,bpRole,pno,psize);
+		return bupaService.findByFirstName(firstName.trim(),bpRole,pno,psize);
 	}
 	
 	@GetMapping("/findByLastName")
 	public PageResponse findByLastName(String lastName,String bpRole,@RequestParam(defaultValue="0") Integer pno,@RequestParam(defaultValue="8") Integer psize){
-		return bupaService.findByLastName(lastName,bpRole,pno,psize);
+		return bupaService.findByLastName(lastName.trim(),bpRole,pno,psize);
 	}
 	
 	@GetMapping("/findByRole")
