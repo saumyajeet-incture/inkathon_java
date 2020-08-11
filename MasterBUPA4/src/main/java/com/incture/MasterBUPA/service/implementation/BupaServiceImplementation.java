@@ -160,9 +160,9 @@ public class BupaServiceImplementation implements BUPAService {
 			} else
 				return null;
 		} else {
-
 			PageResponse pageResponse = new PageResponse();
-			Pageable pageable = PageRequest.of(pno, psize);
+			Sort.Order order = new Sort.Order(Sort.Direction.ASC, "BP_ID");
+			Pageable pageable = PageRequest.of(pno, psize,Sort.by(order));
 			if (firstName != "" || firstName != null) {
 				Page<BusinessPartner> pageShow = bupaRepository.getByRoleAndName(firstName.toLowerCase(),
 						bpRole.toLowerCase(), pageable);
@@ -192,7 +192,8 @@ public class BupaServiceImplementation implements BUPAService {
 				return null;
 		} else {
 			PageResponse pageResponse = new PageResponse();
-			Pageable pageable = PageRequest.of(pno, psize);
+			Sort.Order order = new Sort.Order(Sort.Direction.ASC, "BP_ID");
+			Pageable pageable = PageRequest.of(pno, psize,Sort.by(order));
 			if (lastName != "" || lastName != null) {
 				Page<BusinessPartner> pageShow = bupaRepository.getByRoleAndLastName(lastName.toLowerCase(),
 						bpRole.toLowerCase(), pageable);
@@ -209,7 +210,8 @@ public class BupaServiceImplementation implements BUPAService {
 	@Override
 	public PageResponse findByRole(String role, Integer pno, Integer psize) {
 		PageResponse pageResponse = new PageResponse();
-		Pageable pageable = PageRequest.of(pno, psize);
+		Sort.Order order = new Sort.Order(Sort.Direction.ASC, "BP_ID");
+		Pageable pageable = PageRequest.of(pno, psize,Sort.by(order));
 		if (role != "" || role != null) {
 			Page<BusinessPartner> pageShow = bupaRepository.getBasicDetailsByRole(role.toLowerCase(), pageable);
 			pageResponse.setListBusinessPartner(pageShow.getContent());
