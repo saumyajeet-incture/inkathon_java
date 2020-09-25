@@ -1,0 +1,8 @@
+applications:
+-  name: MasterBUPA1
+   #memory: 1G
+   path: target/MasterBUPA2-0.0.1-SNAPSHOT.war
+   random-route: false
+   buildpack: https://github.com/cloudfoundry/java-buildpack.git
+   services:
+   - CF_DEMO
